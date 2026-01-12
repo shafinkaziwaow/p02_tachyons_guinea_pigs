@@ -7,7 +7,7 @@
 - Sean Takahashi: TBD
 
 ## Description:
-<INSERT DESCRIPTION>
+Our project aims to make a parody of the hit rhythm game Geometry Dash using JavaScript. Users will need to sign in to access the game. They can create accounts if needed. Upon logging in, the homepage will guide users on how to use the site. There will be an explanation of the game's controls / mechanics, and they will be able to play through a level(s). Pressing space will allow them to jump to avoid obstacles. If they hit an obstacle, they will need to restart the level from the beginning. Completing a certain percent of a level will give a certain amount of points, and there will be a leaderboard displaying who has the most points.
 
 ## Install Guide:
 
