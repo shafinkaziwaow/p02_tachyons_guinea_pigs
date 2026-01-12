@@ -2,3 +2,8 @@ seanT -- 2026-01-12 10:47
 - Created all basic required files and pushed
 
 INITIAL DEVLOG REVIEW -- 2026-01-12
+
+shafinK -- 2026-01-12
+- added navbar to index.html
+- added disp_homepage to __init__.py
+- ripped from my p01 --> subject to change (encouraged to change)
