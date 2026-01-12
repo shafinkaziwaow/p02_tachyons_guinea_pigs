@@ -1,4 +1,4 @@
-# <Project Name> by Tachyons Guinea Pigs
+# Polygon Derby by Tachyons Guinea Pigs
 
 ## Roster:
 - Shafin Kazi(PM): TBD
