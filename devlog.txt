@@ -1,1 +1,4 @@
-INITIAL DEVLOG REVIEW
+seanT -- 2026-01-12 10:47
+- Created all basic required files and pushed
+
+INITIAL DEVLOG REVIEW -- 2026-01-12
