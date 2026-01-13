@@ -17,7 +17,7 @@ shafinK -- 2026-01-12 10:55
 - ripped login/register features from my p01 --> subject to change 
 - added auth.py (all login/register logic goes here)
 
-shafinK alvinS -- 2026-01-12 23:38
+shafinK alvinS thamidurR -- 2026-01-12 23:38
 - decided on team flag
 - pushed fixed design doc
 - renamed index to header
@@ -28,3 +28,7 @@ seanT -- 2026-01-12 2:08
 
 seanT -- 2026-01-12 11:00
 - Started homepage descriptions and styling
+
+thamidurR -- 2026-01-13 11:00
+- Started Javascript file for game
+- Updated gamescene HTML
