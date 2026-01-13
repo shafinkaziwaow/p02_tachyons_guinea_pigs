@@ -27,9 +27,17 @@ def setup_database():
     db.close()
 setup_database()
 
-@app.route("/")
+@app.get("/")
 def home_get():
     return render_template("home.html")
+
+@app.get("/game")
+def game_get():
+    return render_template("game_scene.html")
+
+@app.post("/game")
+def game_post():
+    return redirect(url_for('game_get'))
 
 
 ### Useful general functions ###
@@ -73,5 +81,3 @@ def get_user(name):
 if __name__ == "__main__":
     app.debug = True
     app.run()
-
-
