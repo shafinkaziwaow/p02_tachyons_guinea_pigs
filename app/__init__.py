@@ -20,7 +20,7 @@ def setup_database():
         CREATE TABLE IF NOT EXISTS users (
             username TEXT PRIMARY KEY,
             password TEXT,
-            points INTEGER
+            points INTEGER DEFAULT 0
         );
     """)
     db.commit()
@@ -28,8 +28,47 @@ def setup_database():
 setup_database()
 
 @app.route("/")
-def disp_homepage():
+def home_get():
     return render_template("home.html")
+
+
+### Useful general functions ###
+
+# data: "key": value}
+def insert_query(table, data):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    placeholder = ["?"] * len(data)
+    c.execute(f"INSERT INTO {table} {tuple(data.keys())} VALUES ({', '.join(placeholder)});", tuple(data.values()))
+    c.close()
+    db.commit()
+
+def dictify(raw, c):
+    output = []
+    for row in raw:
+        d = dict()
+        for col in range(len(row)):
+            d.update({c.description[col][0]: row[col]})
+        output.append(d)
+    return output
+
+# params: [val1, val2]
+# returns [{'key1': val1}]
+def general_query(query_string, params=()):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute(query_string, params)
+    raw = c.fetchall()
+    output = dictify(raw, c)
+    c.close()
+    db.commit()
+    return output
+
+def get_user(name):
+    user = general_query(f"SELECT * FROM profiles WHERE username=?", [name])
+    return None if len(user) == 0 else user[0]
+
+
 
 if __name__ == "__main__":
     app.debug = True

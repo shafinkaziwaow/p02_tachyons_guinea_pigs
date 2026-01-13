@@ -52,7 +52,7 @@ def login_post():
         if(check_password_hash(hashword, password)):
             session["username"] = username
             flash('Logged in successfully!', 'success')
-            return redirect(url_for('disp_homepage'))
+            return redirect(url_for('home_get'))
         else:
             flash('Invalid password', 'error')
             return redirect(url_for('auth.login_get'))
