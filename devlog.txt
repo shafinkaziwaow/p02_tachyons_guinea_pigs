@@ -25,3 +25,6 @@ shafinK alvinS -- 2026-01-12 23:38
 seanT -- 2026-01-12 2:08
 - added some useful general database functions
 - aligned page function naming conventions
+
+seanT -- 2026-01-12 11:00
+- Started homepage descriptions and styling
