@@ -31,9 +31,9 @@ setup_database()
 def home_get():
     return render_template("home.html")
 
-@app.get("/game")
+@app.get("/game_file")
 def game_get():
-    return render_template("game_scene.html")
+    return render_template("game_file.html")
 
 @app.post("/game")
 def game_post():
