@@ -14,7 +14,7 @@ shafinK -- 2026-01-12 14:04
 - ripped from my p01 --> subject to change (encouraged to change)
 
 shafinK -- 2026-01-12 10:55
-- ripped login/register features from my p01 --> subject to change 
+- ripped login/register features from my p01 --> subject to change
 - added auth.py (all login/register logic goes here)
 
 shafinK alvinS thamidurR -- 2026-01-12 23:38
@@ -32,3 +32,8 @@ seanT -- 2026-01-12 11:00
 thamidurR -- 2026-01-13 11:00
 - Started Javascript file for game
 - Updated gamescene HTML
+
+shafinK -- 2026-01-13 13:05
+- redid some coloring
+- added leaderboard to homepage
+- added checkers prevent access of pages without being logged in through urls

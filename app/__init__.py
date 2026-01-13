@@ -27,17 +27,35 @@ def setup_database():
     db.close()
 setup_database()
 
-@app.get("/")
+@app.route("/")
 def home_get():
-    return render_template("home.html")
+    if (session.get('username')):
+        db = sqlite3.connect(DB_FILE)
+        c = db.cursor()
+        temp = c.execute("SELECT * FROM users ORDER BY points DESC LIMIT 5")
+        users = []
+        for u in temp:
+            list = []
+            for var in u:
+                list.append(var)
+            users.append(list)
+        db.close()
+        return render_template("home.html", users = users)
+    return(redirect(url_for("auth.login_get")))
+
 
 @app.get("/game_file")
 def game_get():
-    return render_template("game_file.html")
+    if (session.get('username')):
+        return render_template("game_file.html")
+    return(redirect(url_for("auth.login_get")))
+
 
 @app.post("/game")
 def game_post():
-    return redirect(url_for('game_get'))
+    if (session.get('username')):
+        return redirect(url_for('game_get'))
+    return(redirect(url_for("auth.login_get")))
 
 
 ### Useful general functions ###

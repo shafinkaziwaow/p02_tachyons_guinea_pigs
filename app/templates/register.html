@@ -6,11 +6,11 @@
   2026-01-16f
 -->
 
-{% extends "header.html" %} 
+{% extends "header.html" %}
 
-{% block title %} 
+{% block title %}
 Register
-{% endblock %} 
+{% endblock %}
 
 {%block content %}
 <!-- <h1>Testing...</h1> -->
@@ -63,7 +63,7 @@ Register
       </div>
       <div class="flex items-center justify-between">
         <button
-          class="bg-amber-700 hover:bg-amber-900 text-white font-bold py-2 px-4 rounded transition duration-200 hover:scale-105"
+          class="bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded transition duration-200 hover:scale-105"
           type="submit"
         >
           Sign Up
@@ -75,7 +75,7 @@ Register
       </a>
     </form>
 
-    {% with messages = get_flashed_messages() %} 
+    {% with messages = get_flashed_messages() %}
       {% if messages %}
       <div class="space-y-4 mt-4">
         {% for message in messages %}
@@ -87,7 +87,7 @@ Register
         </div>
         {% endfor %}
       </div>
-      {% endif %} 
+      {% endif %}
     {% endwith %}
   </div>
 </div>
