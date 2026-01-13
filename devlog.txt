@@ -7,3 +7,7 @@ shafinK -- 2026-01-12
 - added navbar to index.html
 - added disp_homepage to __init__.py
 - ripped from my p01 --> subject to change (encouraged to change)
+
+shafinK -- 2025-01-12
+- ripped login/register features from my p01 --> subject to change 
+- added auth.py (all login/register logic goes here)

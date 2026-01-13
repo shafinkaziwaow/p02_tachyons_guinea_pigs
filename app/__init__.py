@@ -5,10 +5,11 @@
 # 2026-01-16f
 
 from flask import Flask, render_template, request, session, redirect, url_for, flash
+from auth import bp as auth_bp
 import sqlite3, os
 
-
 app = Flask(__name__)
+app.register_blueprint(auth_bp)
 app.secret_key = os.urandom(24)
 DB_FILE = "users.db"
 

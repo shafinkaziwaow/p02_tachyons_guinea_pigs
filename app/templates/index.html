@@ -23,9 +23,9 @@
         >
           <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
             <img
-              src="#"
+              src="https://media.tenor.com/ifD1GaekwpoAAAAj/uma-musume-agnes-tachyon.gif"
               class="h-10"
-              alt="put something here"
+              alt="Tachy"
             />
             <span
               class="self-center text-xl text-heading font-semibold whitespace-nowrap"
@@ -46,12 +46,12 @@
               </li>
               {% if not session['username'] %}
               <li>
-                <a href="/login" class="md:hover:text-red-500">Log In</a>
+                <a href="/auth/login" class="md:hover:text-red-500">Log In</a>
               </li>
 
               <li>
                 <a
-                  href="/register"
+                  href="/auth/register"
                   class="text-heading md:hover:text-red-500"
                   >Register</a
                 >
@@ -78,8 +78,7 @@
         </div>
       </nav>
     </header>
-
-    <br> <br> <br> <br>
+    
     <main class="content">{% block content %} {% endblock %}</main>
   </body>
 </html>
