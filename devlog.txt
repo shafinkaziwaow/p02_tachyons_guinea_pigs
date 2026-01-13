@@ -21,3 +21,7 @@ shafinK alvinS -- 2026-01-12 23:38
 - decided on team flag
 - pushed fixed design doc
 - renamed index to header
+
+seanT -- 2026-01-12 2:08
+- added some useful general database functions
+- aligned page function naming conventions
