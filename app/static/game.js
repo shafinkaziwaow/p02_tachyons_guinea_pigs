@@ -12,30 +12,39 @@ var accelerationY = 0
 
 var gravity = 1
 
-var floorLocation = 0
-
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
+var blocksize = 75
+
+var floorLocation = canvas.height - blocksize
+
+var grounded = true
+
 ctx.fillStyle = "green";
+
+
 
 function update() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  ctx.fillRect(canvas.width/2, canvas.height/2 + positionY, 75, 75);
+  ctx.fillRect(canvas.width/10, positionY, blocksize, blocksize);
 
-  if (positionY < floorLocation) {
+  if (positionY  < floorLocation) {
     accelerationY = gravity
+    grounded = false
   }
-  else {
+  else if (!grounded){
     accelerationY = 0
-    positionY = 0
+    positionY = floorLocation
+    velocityY = 0
+    grounded = true
   }
 
   positionY += velocityY
   velocityY += accelerationY
 
-  console.log(positionY);
+  // console.log(grounded);
 
   requestAnimationFrame(update);
 }
@@ -45,15 +54,18 @@ if (!dead){
 }
 
 function jump() {
-  if (positionY >= floorLocation) {
+  if (grounded) {
     velocityY = -12
   }
 }
 
 document.addEventListener("keydown", e => {
-  if (e.code === "Space") jump();
+  if (e.code === "Space" || e.code === "KeyW" || e.code === "ArrowUp") jump();
 });
 
+document.addEventListener("mousedown", e => { 
+  if (e.button === 0) jump();
+})
 
 function endgame() { ///////////////////////////////////////// FIX
   console.log("pop1111111111111111111");

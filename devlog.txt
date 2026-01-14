@@ -37,3 +37,8 @@ shafinK -- 2026-01-13 13:05
 - redid some coloring
 - added leaderboard to homepage
 - added checkers prevent access of pages without being logged in through urls
+
+alvinS -- 2026-01-13 22:11
+- formatting canvas
+- added new keybinds to jump
+- added grounded check and actually falling to floor

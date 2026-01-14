@@ -33,6 +33,9 @@ Home
       {% endif %}
     {% endwith %}
   </div>
+  <div style="width: 100 vw; padding-top: 20vh;">
+   <canvas id="canvas" width="800" height="300" style="background-color: black; margin-left: auto; margin-right: auto;"></canvas>
+  </div>
 
 
 
@@ -40,7 +43,6 @@ Home
 
 {% block script %}
 
-  <canvas id="canvas" width="800" height="300"></canvas>
   <script src = "../static/game.js"></script>
 
 {% endblock %}

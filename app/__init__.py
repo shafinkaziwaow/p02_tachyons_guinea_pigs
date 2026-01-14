@@ -44,10 +44,10 @@ def home_get():
     return(redirect(url_for("auth.login_get")))
 
 
-@app.get("/game_file")
+@app.get("/game_scene")
 def game_get():
     if (session.get('username')):
-        return render_template("game_file.html")
+        return render_template("game_scene.html")
     return(redirect(url_for("auth.login_get")))
 
 
