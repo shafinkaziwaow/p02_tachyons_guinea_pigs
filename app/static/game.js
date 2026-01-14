@@ -24,15 +24,11 @@ var orbing = false
 
 var scrollSpeed = 8
 
-var obstacles = [
-  {x: 1000, y: floorLocation, width: 40, height: 60},
-  {x: 1500, y: floorLocation - 50, width: 60, height: 110}
+var objects = [
+  {tag: "block", x: 1000, y: floorLocation, width: 40, height: 60},
+  {tag: "block", x: 1500, y: floorLocation - 50, width: 60, height: 110},
+  {tag: "orb", x: 1425, y: floorLocation - 30, radius: 50}
 ]
-
-var orbs = [
-  {x: 1425, y: floorLocation - 30, radius: 25}
-]
-
 
 function update() {
   if (dead) {
@@ -44,33 +40,36 @@ function update() {
   ctx.fillStyle = "cyan"
   ctx.fillRect(canvas.width/10, positionY, blocksize, blocksize);
 
-  ctx.fillStyle = "red"
-  for (let i = 0; i < obstacles.length; i++) {
-    let obst = obstacles[i]
-    obst.x -= scrollSpeed
-    ctx.fillRect(obst.x, obst.y, obst.width, obst.height)
-
+  for (let i = 0; i < objects.length; i++) {
+    let obj = objects[i]
+    obj.x -= scrollSpeed
     let positionX = canvas.width / 10
-    if (positionX + blocksize > obst.x && 
-        positionX < obst.x + obst.width &&
-        positionY + blocksize > obst.y &&
-        positionY < obst.y + obst.height) {
-      endgame()
+
+    if (obj.tag == "block") {
+      ctx.fillStyle = "red"
+      ctx.fillRect(obj.x, obj.y, obj.width, obj.height)
+
+      if (positionX + blocksize > obj.x && 
+          positionX < obj.x + obj.width &&
+          positionY + blocksize > obj.y &&
+          positionY < obj.y + obj.height) {
+        endgame()
+      }
     }
-  }
 
-  ctx.fillStyle = "gold"
-  for (let i = 0; i < orbs.length; i++) {
-    let orb = orbs[i]
-    orb.x -= scrollSpeed
-    ctx.fillRect(orb.x, orb.y, orb.radius, orb.radius)
+    if (obj.tag == "orb") {
+      ctx.fillStyle = "gold"
+      ctx.fillRect(obj.x, obj.y, obj.radius, obj.radius)
 
-    let positionX = canvas.width / 10
-    if (positionX + blocksize > orb.x && 
-        positionX < orb.x + orb.radius &&
-        positionY + blocksize > orb.y &&
-        positionY < orb.y + orb.radius) {
-      orbing = true
+      if (positionX + blocksize > obj.x && 
+          positionX < obj.x + obj.radius &&
+          positionY + blocksize > obj.y &&
+          positionY < obj.y + obj.radius) {
+
+        orbing = true
+      } else {
+        orbing = false
+      }
     }
   }
 
