@@ -20,22 +20,28 @@ var blocksize = 50
 var floorLocation = canvas.height - blocksize
 
 var grounded = true
+var orbing = false
 
 var scrollSpeed = 8
 
 var obstacles = [
-  {x: 1000, y: floorLocation, type: "spike", width: 40, height: 60},
-  {x: 1500, y: floorLocation + 10, type: "spike", width: 60, height: 40}
+  {x: 1000, y: floorLocation, width: 40, height: 60},
+  {x: 1500, y: floorLocation - 50, width: 60, height: 110}
 ]
+
+var orbs = [
+  {x: 1425, y: floorLocation - 30, radius: 25}
+]
+
 
 function update() {
   if (dead) {
     return;
   }
-  
+
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  ctx.fillStyle = "gold"
+  ctx.fillStyle = "cyan"
   ctx.fillRect(canvas.width/10, positionY, blocksize, blocksize);
 
   ctx.fillStyle = "red"
@@ -52,6 +58,22 @@ function update() {
       endgame()
     }
   }
+
+  ctx.fillStyle = "gold"
+  for (let i = 0; i < orbs.length; i++) {
+    let orb = orbs[i]
+    orb.x -= scrollSpeed
+    ctx.fillRect(orb.x, orb.y, orb.radius, orb.radius)
+
+    let positionX = canvas.width / 10
+    if (positionX + blocksize > orb.x && 
+        positionX < orb.x + orb.radius &&
+        positionY + blocksize > orb.y &&
+        positionY < orb.y + orb.radius) {
+      orbing = true
+    }
+  }
+
 
   if (positionY  < floorLocation) {
     accelerationY = gravity
@@ -77,7 +99,7 @@ if (!dead){
 }
 
 function jump() {
-  if (grounded) {
+  if (grounded || orbing) {
     velocityY = -12
   }
 }

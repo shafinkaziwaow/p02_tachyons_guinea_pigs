@@ -52,3 +52,6 @@ alvinS -- 2026-01-13 22:11
 shafinK -- 2026-01-14 00:30
 - added play button on homepage
 - added obstacles and collisions on game.js
+
+shafinK -- 2026-01-14 1:03
+- added orbs
