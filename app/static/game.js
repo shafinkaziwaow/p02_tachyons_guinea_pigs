@@ -25,8 +25,10 @@ var orbing = false
 var scrollSpeed = 8
 
 var objects = [
-  {tag: "block", x: 1000, y: floorLocation, width: 40, height: 60},
-  {tag: "block", x: 1500, y: floorLocation - 50, width: 60, height: 110},
+  {tag: "spike", x: 1000, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 1050, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 1100, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 1500, y: floorLocation - 50, width: 60, height: 110},
   {tag: "orb", x: 1425, y: floorLocation - 30, radius: 50}
 ]
 
@@ -45,11 +47,11 @@ function update() {
     obj.x -= scrollSpeed
     let positionX = canvas.width / 10
 
-    if (obj.tag == "block") {
+    if (obj.tag == "spike") {
       ctx.fillStyle = "red"
       ctx.fillRect(obj.x, obj.y, obj.width, obj.height)
 
-      if (positionX + blocksize > obj.x && 
+      if (positionX + blocksize > obj.x &&
           positionX < obj.x + obj.width &&
           positionY + blocksize > obj.y &&
           positionY < obj.y + obj.height) {
@@ -61,7 +63,7 @@ function update() {
       ctx.fillStyle = "gold"
       ctx.fillRect(obj.x, obj.y, obj.radius, obj.radius)
 
-      if (positionX + blocksize > obj.x && 
+      if (positionX + blocksize > obj.x &&
           positionX < obj.x + obj.radius &&
           positionY + blocksize > obj.y &&
           positionY < obj.y + obj.radius) {
@@ -93,7 +95,7 @@ function update() {
   requestAnimationFrame(update);
 }
 
-if (!dead){
+if (!dead) {
   update();
 }
 
@@ -107,7 +109,7 @@ document.addEventListener("keydown", e => {
   if (e.code === "Space" || e.code === "KeyW" || e.code === "ArrowUp") jump();
 });
 
-document.addEventListener("mousedown", e => { 
+document.addEventListener("mousedown", e => {
   if (e.button === 0) jump();
 })
 
@@ -117,3 +119,10 @@ function endgame() { ///////////////////////////////////////// FIX
   dead = true
 }
 
+// function makeSpike(x, y) {
+//   base_image = new Image();
+//   base_image.src = 'images/spike.png';
+//   base_image.onload = function() {
+//     ctx.drawImage(base_image, x, y, 100, 100);
+//   }
+// }

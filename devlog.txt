@@ -57,6 +57,11 @@ shafinK -- 2026-01-14 1:03
 - added orbs
 
 shafinK -- 2026-11-14 11:16
-- moved all objects to one list 
-- fixed bug that gave infinite jumps after using jump orb 
-- made orb really big for convenience 
+- moved all objects to one list
+- fixed bug that gave infinite jumps after using jump orb
+- made orb really big for convenience
+
+thamidurR & shafinK -- 2026-01-14 14:45
+- Optimized spikes
+- Added images
+- Tested image implementation
