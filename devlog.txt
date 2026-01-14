@@ -33,6 +33,12 @@ thamidurR -- 2026-01-13 11:00
 - Started Javascript file for game
 - Updated gamescene HTML
 
+thamidurR -- 2026-01-13 12:00
+- Created canvas
+- Created player
+- Created input system
+- Implemented basic physics and jumping
+
 shafinK -- 2026-01-13 13:05
 - redid some coloring
 - added leaderboard to homepage
