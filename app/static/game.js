@@ -15,20 +15,43 @@ var gravity = 1
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-var blocksize = 75
+var blocksize = 50
 
 var floorLocation = canvas.height - blocksize
 
 var grounded = true
 
-ctx.fillStyle = "green";
+var scrollSpeed = 8
 
-
+var obstacles = [
+  {x: 1000, y: floorLocation, type: "spike", width: 40, height: 60},
+  {x: 1500, y: floorLocation + 10, type: "spike", width: 60, height: 40}
+]
 
 function update() {
+  if (dead) {
+    return;
+  }
+  
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+  ctx.fillStyle = "gold"
   ctx.fillRect(canvas.width/10, positionY, blocksize, blocksize);
+
+  ctx.fillStyle = "red"
+  for (let i = 0; i < obstacles.length; i++) {
+    let obst = obstacles[i]
+    obst.x -= scrollSpeed
+    ctx.fillRect(obst.x, obst.y, obst.width, obst.height)
+
+    let positionX = canvas.width / 10
+    if (positionX + blocksize > obst.x && 
+        positionX < obst.x + obst.width &&
+        positionY + blocksize > obst.y &&
+        positionY < obst.y + obst.height) {
+      endgame()
+    }
+  }
 
   if (positionY  < floorLocation) {
     accelerationY = gravity
@@ -72,3 +95,4 @@ function endgame() { ///////////////////////////////////////// FIX
   cancelAnimationFrame(update);
   dead = true
 }
+

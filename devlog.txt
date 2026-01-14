@@ -48,3 +48,7 @@ alvinS -- 2026-01-13 22:11
 - formatting canvas
 - added new keybinds to jump
 - added grounded check and actually falling to floor
+
+shafinK -- 2026-01-14 00:30
+- added play button on homepage
+- added obstacles and collisions on game.js

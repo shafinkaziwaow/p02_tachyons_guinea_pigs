@@ -44,13 +44,19 @@ Home
   <h3 class="text-xl text-black text-semibold">Instructions/Controls</h3>
   <p><b>Jump</b>: up arrow, space, click</p>
 
+  <br>
+  
+  <div class="flex justify-center">
+    <a href="/game_scene" class="bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-4 px-8 rounded transition duration-200 hover:scale-110">Play!</a>
+  </div>
+
+  <br><br>
 
 <div class="flex justify-center text-xl text-semibold">LEADERBOARD</div>
 
-<br> <br> <br>
+<br>
 
   <div class="flex justify-center bg-neutral-primary-soft shadow-xs rounded-base">
-    <!-- <div class="text justify-center">Leaderboard</div> -->
     <table class="w-2/5 text-sm border border-amber-500">
         <thead class="bg-neutral-secondary-soft border-b border-amber-800">
             <tr>
@@ -75,9 +81,9 @@ Home
         {% endfor %}
         </tbody>
     </table>
+  </div>
 
-    <br><br><br>
-</div>
+  <br><br><br>
 
 
 {% endblock %}
