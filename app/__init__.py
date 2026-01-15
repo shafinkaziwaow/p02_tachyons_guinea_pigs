@@ -27,8 +27,10 @@ def setup_database():
     db.close()
 setup_database()
 
+
 @app.route("/")
 def home_get():
+    session['username'] = 'a'
     if (session.get('username')):
         db = sqlite3.connect(DB_FILE)
         c = db.cursor()
@@ -41,6 +43,7 @@ def home_get():
             users.append(list)
         db.close()
         return render_template("home.html", users = users)
+    
     return(redirect(url_for("auth.login_get")))
 
 
