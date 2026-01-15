@@ -106,3 +106,7 @@ shafinK -- 2026-01-15 00:43
 thamidurR -- 2026-01-15 10:15
 - Added progress bar
 - Added to stage
+
+seanT -- 2026-01-15 10:50
+- Style homepage better
+- Made max points per level and game, update accordingly
