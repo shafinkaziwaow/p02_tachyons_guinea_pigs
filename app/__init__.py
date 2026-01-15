@@ -76,7 +76,7 @@ def submit_score():
             flash(f'Gained {score} points!', 'success')
         db.commit()
         db.close()
-        return render_template("game_scene.html")
+        return redirect(url_for("game_get"))
     return(redirect(url_for("auth.login_get")))
 
 

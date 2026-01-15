@@ -19,7 +19,7 @@ tachyship.src = "../static/images/TachyShip.png"
 const background = new Image()
 background.src = "../static/images/Background.png"
 
-var music = new Audio('../static/songs/next_frontier.mp3');
+var music = new Audio('../static/songs/tracen_ondo.mp3');
 music.volume = 0.25
 
 
@@ -101,7 +101,7 @@ function startScreen(){
 }
 
 var objects = [
-  {tag:"ufo", x: 500, y: floorLocation - 50, width: 10, height: 110},
+  {tag:"ship", x: 500, y: floorLocation - 50, width: 10, height: 110},
   {tag:"cube", x: 750, y: floorLocation - 50, width: 10, height: 110},
   {tag: "spike", x: 1000, y: floorLocation + 10, width: 12, height: 30},
   {tag: "spike", x: 1050, y: floorLocation + 10, width: 12, height: 30},
@@ -128,11 +128,11 @@ function update() {
   }
   ctx.drawImage(background, 0, 0);
 
-  if (gamemode == "Cube") ctx.drawImage(tachywachy, canvas.width/10, positionY - (119 - blocksize));
-  if (gamemode == "Ship") ctx.drawImage(tachyship, canvas.width/10, positionY - (119 - blocksize));
+  if (gamemode == "Cube") ctx.drawImage(tachywachy, canvas.width/10 - 15, positionY - (119 - blocksize));
+  if (gamemode == "Ship") ctx.drawImage(tachyship, canvas.width/10 - 15, positionY - (119 - blocksize));
   if (gamemode == "UFO") ctx.fillStyle = "orange"
   
-  ctx.fillRect(canvas.width/10, positionY, blocksize, blocksize);
+  // ctx.fillRect(canvas.width/10, positionY, blocksize, blocksize);
 
   totalDistance += scrollSpeed
 
@@ -183,7 +183,7 @@ function update() {
     }
 
     if (obj.tag == "block") {
-      ctx.fillStyle = "blue"
+      ctx.fillStyle = "black"
       ctx.fillRect(obj.x, obj.y, obj.width, obj.height)
 
       if (positionX + blocksize > obj.x &&

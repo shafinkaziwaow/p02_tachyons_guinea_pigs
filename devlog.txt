@@ -97,3 +97,8 @@ shafinK -- 2026-01-15 00:25
 
 alvinS -- 2026-01-15 00:30
 - More images D:
+
+shafinK -- 2026-01-15 00:43
+- small changes with sprite overlay
+- changed block color to black
+- fixed form resubmission bug that gave infinite points 
