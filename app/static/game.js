@@ -25,6 +25,11 @@ var currentOrb = null
 
 var scrollSpeed = 8
 
+var jumping = false
+var hasJumped = false
+
+var gamemode = "Cube"
+
 var objects = [
   {tag: "spike", x: 1000, y: floorLocation + 10, width: 12, height: 30},
   {tag: "spike", x: 1050, y: floorLocation + 10, width: 12, height: 30},
@@ -41,8 +46,7 @@ var objects = [
   {tag: "block", x: 1850, y: floorLocation - 150, width: 400, height: 20},
   {tag: "spike", x: 2000, y: floorLocation - 185, width: 12, height: 30},
   {tag: "orb", x: 2050, y: floorLocation - 220, radius: 30},
-  {tag: "block", x: 2200, y: floorLocation - 200, width: 30, height: 60},
-
+  {tag: "block", x: 2200, y: floorLocation - 200, width: 30, height: 60}
 ]
 
 function update() {
@@ -52,7 +56,9 @@ function update() {
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  ctx.fillStyle = "cyan"
+  if (gamemode == "Cube") ctx.fillStyle = "cyan"
+  if (gamemode == "Ship") ctx.fillStyle = "purple"
+  if (gamemode == "UFO") ctx.fillStyle = "orange"
   ctx.fillRect(canvas.width/10, positionY, blocksize, blocksize);
 
   let positionX = canvas.width / 10
@@ -112,6 +118,42 @@ function update() {
         }
       }
     }
+
+    if (obj.tag == "ship") {
+      ctx.fillStyle = "purple"
+      ctx.fillRect(obj.x, obj.y, obj.width, obj.height)
+
+      if (positionX + blocksize > obj.x &&
+          positionX < obj.x + obj.width &&
+          positionY + blocksize > obj.y &&
+          positionY < obj.y + obj.height) {
+        gamemode = "Ship"
+      }
+    }
+
+    if (obj.tag == "cube") {
+      ctx.fillStyle = "green"
+      ctx.fillRect(obj.x, obj.y, obj.width, obj.height)
+
+      if (positionX + blocksize > obj.x &&
+          positionX < obj.x + obj.width &&
+          positionY + blocksize > obj.y &&
+          positionY < obj.y + obj.height) {
+        gamemode = "Cube"
+      }
+    }
+
+    if (obj.tag == "ufo") {
+      ctx.fillStyle = "orange"
+      ctx.fillRect(obj.x, obj.y, obj.width, obj.height)
+
+      if (positionX + blocksize > obj.x &&
+          positionX < obj.x + obj.width &&
+          positionY + blocksize > obj.y &&
+          positionY < obj.y + obj.height) {
+        gamemode = "UFO"
+      }
+    }
   }
 
   if (positionY < floorLocation && !onBlock) {
@@ -125,8 +167,36 @@ function update() {
     grounded = true
   }
 
+  if (velocityY > 20) {
+    velocityY = 20
+  }
+
   positionY += velocityY
   velocityY += accelerationY
+
+  if (gamemode == "Cube") {
+    if ((grounded == true && jumping == true) || (orbing == true && jumping == true && hasJumped == false)) {
+      velocityY = -12
+      gravity = 1
+      hasJumped = true
+    }
+  }
+  else if (gamemode == "Ship") {
+    if ((jumping == true) || (orbing == true && jumping == true && hasJumped == false)) {
+      velocityY = -7
+      gravity = 0.4
+      hasJumped = true
+    }
+  }
+  else if (gamemode == "UFO") {
+    if ((jumping == true && hasJumped == false) || (orbing == true && jumping == true && hasJumped == false)) {
+      velocityY = -8
+      gravity = 0.3
+      hasJumped = true
+    }
+  }
+
+  console.log(hasJumped);
 
   requestAnimationFrame(update);
 }
@@ -165,19 +235,34 @@ function restart() {
     {tag: "spike", x: 1750, y: floorLocation + 10, width: 12, height: 30},
     {tag: "spike", x: 1800, y: floorLocation + 10, width: 12, height: 30},
     {tag: "spike", x: 1850, y: floorLocation + 10, width: 12, height: 30},
-    {tag: "block", x: 1875, y: floorLocation - 150, width: 500, height: 20}
+    {tag: "block", x: 1850, y: floorLocation - 150, width: 400, height: 20},
+    {tag: "spike", x: 2000, y: floorLocation - 185, width: 12, height: 30},
+    {tag: "orb", x: 2050, y: floorLocation - 220, radius: 30},
+    {tag: "block", x: 2200, y: floorLocation - 200, width: 30, height: 60}
   ]
   
   update()
 }
-
 document.addEventListener("keydown", e => {
-  if (e.code === "Space" || e.code === "KeyW" || e.code === "ArrowUp") jump();
-  if (e.code === "KeyR" && dead) restart()
+  if (e.code === "Space" || e.code === "KeyW" || e.code === "ArrowUp") jumping = true;
+});
+
+document.addEventListener("keyup", e => {
+  if (e.code === "Space" || e.code === "KeyW" || e.code === "ArrowUp") {
+    jumping = false;
+    hasJumped = false;
+  }
 });
 
 document.addEventListener("mousedown", e => {
-  if (e.button === 0) jump();
+  if (e.button === 0) jumping = true;
+})
+
+document.addEventListener("mouseup", e => {
+  if (e.button === 0) {
+    jumping = false;
+    hasJumped = false;
+  }
 })
 
 function endgame() {
