@@ -10,6 +10,9 @@ spike.src = "../static/images/spike.png"
 const logo = new Image()
 logo.src = "https://media.tenor.com/ifD1GaekwpoAAAAj/uma-musume-agnes-tachyon.gif"
 
+var music = new Audio('../static/songs/tracen_ondo.mp3');
+music.volume = 0.25
+
 var dead = true
 
 var positionY = 0
@@ -66,6 +69,7 @@ var button = (function () {
 }())
 
 function start(){
+  music.play()
   buttons = []
   dead = false;
   update()
@@ -88,7 +92,7 @@ function startScreen(){
 var objects = [
   {tag: "spike", x: 1000, y: floorLocation + 10, width: 12, height: 30},
   {tag: "spike", x: 1050, y: floorLocation + 10, width: 12, height: 30},
-  {tag: "spike", x: 1500, y: floorLocation - 50, width: 60, height: 110},
+  {tag: "block", x: 1500, y: floorLocation - 50, width: 60, height: 110},
   {tag: "orb", x: 1425, y: floorLocation - 40, radius: 30},
   {tag: "orb", x: 1600, y: floorLocation - 40, radius: 30},
   {tag: "orb", x: 1700, y: floorLocation - 100, radius: 30},
@@ -99,7 +103,7 @@ var objects = [
   {tag: "spike", x: 1800, y: floorLocation + 10, width: 12, height: 30},
   {tag: "spike", x: 1850, y: floorLocation + 10, width: 12, height: 30},
   {tag: "block", x: 1850, y: floorLocation - 150, width: 400, height: 20},
-  {tag: "spike", x: 2000, y: floorLocation - 185, width: 12, height: 30},
+  {tag: "spike", x: 2000, y: floorLocation - 190, width: 12, height: 30},
   {tag: "orb", x: 2050, y: floorLocation - 220, radius: 30},
   {tag: "block", x: 2200, y: floorLocation - 200, width: 30, height: 60}
 ]
@@ -123,7 +127,7 @@ function update() {
     obj.x -= scrollSpeed
 
     if (obj.tag == "spike") {
-      ctx.drawImage(spike, obj.x, obj.y, blocksize/2, blocksize/2)
+      ctx.drawImage(spike, obj.x, obj.y, blocksize / 1.2, blocksize / 1.2)
 
       if (positionX + blocksize > obj.x &&
           positionX < obj.x + obj.width &&
@@ -277,11 +281,12 @@ function restart() {
   currentOrb = null
   jumping = false
   hasJumped = false
+  music.currentTime = 0
 
   objects = [
     {tag: "spike", x: 1000, y: floorLocation + 10, width: 12, height: 30},
     {tag: "spike", x: 1050, y: floorLocation + 10, width: 12, height: 30},
-    {tag: "spike", x: 1500, y: floorLocation - 50, width: 60, height: 110},
+    {tag: "block", x: 1500, y: floorLocation - 50, width: 60, height: 110},
     {tag: "orb", x: 1425, y: floorLocation - 40, radius: 30},
     {tag: "orb", x: 1600, y: floorLocation - 40, radius: 30},
     {tag: "orb", x: 1700, y: floorLocation - 100, radius: 30},
@@ -344,6 +349,7 @@ function endgame() {
   console.log("Game Over!");
   cancelAnimationFrame(update);
   dead = true
+  music.pause()
   
   ctx.fillStyle = "white"
   ctx.font = "48px Arial"
