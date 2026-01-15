@@ -125,3 +125,6 @@ shafinK -- 2026-01-15 16:53
 shafinK -- 2026-01-15 17:25 
 - fixed issue of jump --> die (only happens like 1/100 times now)
 - added orbs that send you straight down
+
+shafinK -- 2026-01-15 17:35
+- changed umapyoi densetsu to true instrumental
