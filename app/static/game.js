@@ -206,29 +206,31 @@ function update() {
     }
 
     if (obj.tag == "block") {
-      ctx.fillStyle = "black"
-      ctx.fillRect(obj.x, obj.y, obj.width, obj.height)
+        ctx.fillStyle = "black"
+        ctx.fillRect(obj.x, obj.y, obj.width, obj.height)
 
-      if (positionX + blocksize > obj.x &&
-          positionX < obj.x + obj.width &&
-          positionY + blocksize > obj.y &&
-          positionY < obj.y + obj.height) {
+        if (positionX + blocksize > obj.x &&
+            positionX < obj.x + obj.width &&
+            positionY + blocksize > obj.y &&
+            positionY < obj.y + obj.height) {
 
-        if (gamemode == "Ship" || gamemode == "UFO") {
-          if (positionY <= obj.y + obj.height) {
-            positionY = obj.y + obj.height
-            velocityY = 0
-            accelerationY = 0
-          } else if (positionY + blocksize - velocityY <= obj.y) {
-            onBlock = true
-            positionY = obj.y - blocksize
-            velocityY = 0
-            accelerationY = 0
-            grounded = true
-          } else {
-            endgame()
-          }
+            if (positionY + blocksize - velocityY <= obj.y) {
+                onBlock = true
+                positionY = obj.y - blocksize
+                velocityY = 0
+                accelerationY = 0
+                grounded = true
+            }
+            else if (velocityY < 0 && positionY + blocksize - velocityY > obj.y + obj.height) {
+                positionY = obj.y + obj.height
+                velocityY = 0
+                accelerationY = 0
+            }
+            else {
+                endgame()
+            }
         }
+    }
 
         else if (positionY + blocksize - velocityY <= obj.y) {
           onBlock = true
