@@ -10,6 +10,15 @@ spike.src = "../static/images/spike.png"
 const logo = new Image()
 logo.src = "https://media.tenor.com/ifD1GaekwpoAAAAj/uma-musume-agnes-tachyon.gif"
 
+const tachywachy = new Image()
+tachywachy.src = "../static/images/TachyWachy.png"
+
+const tachyship = new Image()
+tachyship.src = "../static/images/TachyShip.png"
+
+const background = new Image()
+background.src = "../static/images/Background.png"
+
 var dead = true
 
 var positionY = 0
@@ -21,7 +30,7 @@ var gravity = 1
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-var blocksize = 50
+var blocksize = 64
 
 var floorLocation = canvas.height - blocksize
 
@@ -88,7 +97,7 @@ function startScreen(){
 var objects = [
   {tag: "spike", x: 1000, y: floorLocation + 10, width: 12, height: 30},
   {tag: "spike", x: 1050, y: floorLocation + 10, width: 12, height: 30},
-  {tag: "spike", x: 1500, y: floorLocation - 50, width: 60, height: 110},
+  {tag: "block", x: 1500, y: floorLocation - 50, width: 60, height: 110},
   {tag: "orb", x: 1425, y: floorLocation - 40, radius: 30},
   {tag: "orb", x: 1600, y: floorLocation - 40, radius: 30},
   {tag: "orb", x: 1700, y: floorLocation - 100, radius: 30},
@@ -108,13 +117,14 @@ function update() {
   if (dead){
     return
   }
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(background, 0, 0);
 
-  if (gamemode == "Cube") ctx.fillStyle = "cyan"
-  if (gamemode == "Ship") ctx.fillStyle = "purple"
+  if (gamemode == "Cube") ctx.drawImage(tachywachy, canvas.width/10, positionY - (119 - blocksize));
+  if (gamemode == "Ship") ctx.drawImage(tachyship, canvas.width/10, positionY - (119 - blocksize));
   if (gamemode == "UFO") ctx.fillStyle = "orange"
+  
   ctx.fillRect(canvas.width/10, positionY, blocksize, blocksize);
-
+ 
   let positionX = canvas.width / 10
   let onBlock = false  
 
@@ -281,7 +291,7 @@ function restart() {
   objects = [
     {tag: "spike", x: 1000, y: floorLocation + 10, width: 12, height: 30},
     {tag: "spike", x: 1050, y: floorLocation + 10, width: 12, height: 30},
-    {tag: "spike", x: 1500, y: floorLocation - 50, width: 60, height: 110},
+    {tag: "block", x: 1500, y: floorLocation - 50, width: 60, height: 110},
     {tag: "orb", x: 1425, y: floorLocation - 40, radius: 30},
     {tag: "orb", x: 1600, y: floorLocation - 40, radius: 30},
     {tag: "orb", x: 1700, y: floorLocation - 100, radius: 30},
