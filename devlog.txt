@@ -76,3 +76,8 @@ shafinK -- 2026-01-14 22:14
 - fixed collisions 
 - added restart level button
 - started level design 
+
+alvinS -- 2026-01-14 22:22
+- added image display functions
+- added button class
+- added start screen
