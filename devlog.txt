@@ -65,3 +65,14 @@ thamidurR & shafinK -- 2026-01-14 14:45
 - Optimized spikes
 - Added images
 - Tested image implementation
+
+thamidurR -- 2026-01-14 22:00
+- Added spike buffering
+- Revamped jump mechanics
+- Implemented Ship and UFO game modes
+
+shafinK -- 2026-01-14 22:14 
+- added block objects 
+- fixed collisions 
+- added restart level button
+- started level design 
