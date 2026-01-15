@@ -232,20 +232,6 @@ function update() {
         }
     }
 
-        else if (positionY + blocksize - velocityY <= obj.y) {
-          onBlock = true
-          positionY = obj.y - blocksize
-          velocityY = 0
-          accelerationY = 0
-          grounded = true
-        }
-
-        else {
-          endgame()
-        }
-      }
-    }
-
     if (obj.tag == "ship") {
       ctx.fillStyle = "purple"
       ctx.fillRect(obj.x, obj.y, obj.width, obj.height)
