@@ -81,3 +81,7 @@ alvinS -- 2026-01-14 22:22
 - added image display functions
 - added button class
 - added start screen
+
+alvinS -- 2026-01-14 22:47
+- mild bug fixes with jumping and orb
+- also fixed restart

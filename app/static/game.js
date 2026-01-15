@@ -65,7 +65,7 @@ var button = (function () {
   return button
 }())
 
-function reset(){
+function start(){
   buttons = []
   dead = false;
   update()
@@ -74,9 +74,11 @@ function reset(){
 function startScreen(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   var level1 = new button("levelOne", "orange", canvas.width/10, canvas.height/10, 80, 45)
-  level1.onClick = function () {return reset()}
+  level1.onClick = function () {return start()}
   buttons.push(level1)
 
+  logo.src = "https://media.tenor.com/ifD1GaekwpoAAAAj/uma-musume-agnes-tachyon.gif"
+  
   for (var i = 0; i < buttons.length; i ++) {
     return buttons[i].draw(ctx)
   }
@@ -230,6 +232,7 @@ function update() {
       velocityY = -12
       gravity = 1
       hasJumped = true
+      orbing = false
     }
   }
   else if (gamemode == "Ship") {
@@ -246,8 +249,6 @@ function update() {
       hasJumped = true
     }
   }
-
-  console.log(hasJumped);
 
   requestAnimationFrame(update);
 }
@@ -268,13 +269,14 @@ function jump() {
 }
 
 function restart() {
-  dead = false
   positionY = 0
   velocityY = 0
   accelerationY = 0
   grounded = true
   orbing = false
   currentOrb = null
+  jumping = false
+  hasJumped = false
 
   objects = [
     {tag: "spike", x: 1000, y: floorLocation + 10, width: 12, height: 30},
@@ -295,14 +297,16 @@ function restart() {
     {tag: "block", x: 2200, y: floorLocation - 200, width: 30, height: 60}
   ]
   
-  update()
+  startScreen()
 }
+
 document.addEventListener("keydown", e => {
-  if (e.code === "Space" || e.code === "KeyW" || e.code === "ArrowUp") jumping = true;
+  if (!dead && (e.code === "Space" || e.code === "KeyW" || e.code === "ArrowUp")) jumping = true;
+  else if (dead && e.code === "KeyR") restart()
 });
 
 document.addEventListener("keyup", e => {
-  if (e.code === "Space" || e.code === "KeyW" || e.code === "ArrowUp") {
+  if (!dead && (e.code === "Space" || e.code === "KeyW" || e.code === "ArrowUp")) {
     jumping = false;
     hasJumped = false;
   }
@@ -319,7 +323,6 @@ canvas.addEventListener("click", function(e) {
     }
   }
 })
-
 
 logo.addEventListener("load", () => {
   ctx.drawImage(logo, canvas.width/2, 0, blocksize * 10, blocksize * 10)
