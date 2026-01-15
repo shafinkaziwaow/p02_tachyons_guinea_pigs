@@ -30,7 +30,6 @@ setup_database()
 
 @app.route("/")
 def home_get():
-    session['username'] = 'a'
     if (session.get('username')):
         db = sqlite3.connect(DB_FILE)
         c = db.cursor()
@@ -58,6 +57,26 @@ def game_get():
 def game_post():
     if (session.get('username')):
         return redirect(url_for('game_get'))
+    return(redirect(url_for("auth.login_get")))
+
+@app.route("/submit_score", methods=['POST'])
+def submit_score():
+    if session.get('username'):
+        score = request.form.get('score')
+        username = session.get('username')
+        
+        db = sqlite3.connect(DB_FILE)
+        c = db.cursor()
+        current_points = c.execute("SELECT points FROM users WHERE username=?", (username,)).fetchone()
+        
+        if current_points:
+            new_points = current_points[0] + int(score)
+            c.execute("UPDATE users SET points=? WHERE username=?", (new_points, username))
+            db.commit()
+            flash(f'Gained {score} points!', 'success')
+        db.commit()
+        db.close()
+        return render_template("game_scene.html")
     return(redirect(url_for("auth.login_get")))
 
 

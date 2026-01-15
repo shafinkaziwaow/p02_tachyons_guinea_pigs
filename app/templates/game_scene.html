@@ -37,7 +37,9 @@ Home
    <canvas id="canvas" width="1200" height="600"style="background-color: black; margin-left: auto; margin-right: auto;"></canvas>
   </div>
 
-
+  <form id="scoring" method="POST" action="/submit_score" style="display: none;">
+    <input type="hidden" name="score" id="scoreInput">
+  </form>
 
 {% endblock %}
 

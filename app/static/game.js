@@ -10,7 +10,7 @@ spike.src = "../static/images/spike.png"
 const logo = new Image()
 logo.src = "https://media.tenor.com/ifD1GaekwpoAAAAj/uma-musume-agnes-tachyon.gif"
 
-var music = new Audio('../static/songs/tracen_ondo.mp3');
+var music = new Audio('../static/songs/next_frontier.mp3');
 music.volume = 0.25
 
 var dead = true
@@ -38,6 +38,7 @@ var hasJumped = false
 var gamemode = "Cube"
 
 var scrollSpeed = 8
+var totalDistance = 0
 
 var buttons = []
 
@@ -90,6 +91,8 @@ function startScreen(){
 }
 
 var objects = [
+  {tag:"ufo", x: 500, y: floorLocation - 50, width: 10, height: 110},
+  {tag:"cube", x: 750, y: floorLocation - 50, width: 10, height: 110},
   {tag: "spike", x: 1000, y: floorLocation + 10, width: 12, height: 30},
   {tag: "spike", x: 1050, y: floorLocation + 10, width: 12, height: 30},
   {tag: "block", x: 1500, y: floorLocation - 50, width: 60, height: 110},
@@ -105,7 +108,8 @@ var objects = [
   {tag: "block", x: 1850, y: floorLocation - 150, width: 400, height: 20},
   {tag: "spike", x: 2000, y: floorLocation - 190, width: 12, height: 30},
   {tag: "orb", x: 2050, y: floorLocation - 220, radius: 30},
-  {tag: "block", x: 2200, y: floorLocation - 200, width: 30, height: 60}
+  {tag: "block", x: 2200, y: floorLocation - 200, width: 30, height: 60},
+  {tag: "finish", x: 2500, y: floorLocation - 900, width: 25, height: 1000}
 ]
 
 function update() {
@@ -118,6 +122,8 @@ function update() {
   if (gamemode == "Ship") ctx.fillStyle = "purple"
   if (gamemode == "UFO") ctx.fillStyle = "orange"
   ctx.fillRect(canvas.width/10, positionY, blocksize, blocksize);
+
+  totalDistance += scrollSpeed
 
   let positionX = canvas.width / 10
   let onBlock = false  
@@ -150,6 +156,18 @@ function update() {
             orbing = true
             currentOrb = obj
           }
+      }
+    }
+
+    if (obj.tag == "finish") {
+      ctx.fillStyle = "green"
+      ctx.fillRect(obj.x, obj.y, obj.width, obj.height)
+
+      if (positionX + blocksize > obj.x &&
+          positionX < obj.x + obj.width &&
+          positionY + blocksize > obj.y &&
+          positionY < obj.y + obj.height) {
+        wingame()
       }
     }
 
@@ -273,6 +291,7 @@ function jump() {
 }
 
 function restart() {
+  totalDistance = 0
   positionY = 0
   velocityY = 0
   accelerationY = 0
@@ -297,9 +316,10 @@ function restart() {
     {tag: "spike", x: 1800, y: floorLocation + 10, width: 12, height: 30},
     {tag: "spike", x: 1850, y: floorLocation + 10, width: 12, height: 30},
     {tag: "block", x: 1850, y: floorLocation - 150, width: 400, height: 20},
-    {tag: "spike", x: 2000, y: floorLocation - 185, width: 12, height: 30},
+    {tag: "spike", x: 2000, y: floorLocation - 190, width: 12, height: 30},
     {tag: "orb", x: 2050, y: floorLocation - 220, radius: 30},
-    {tag: "block", x: 2200, y: floorLocation - 200, width: 30, height: 60}
+    {tag: "block", x: 2200, y: floorLocation - 200, width: 30, height: 60},
+    {tag: "finish", x: 2500, y: floorLocation - 900, width: 25, height: 1000}
   ]
   
   startScreen()
@@ -354,6 +374,22 @@ function endgame() {
   ctx.fillStyle = "white"
   ctx.font = "48px Arial"
   ctx.textAlign = "center"
-  ctx.fillText("Press R to Restart", canvas.width / 2, canvas.height / 2)
+  ctx.fillText("Press R to return to Level Select", canvas.width / 2, canvas.height / 2)
+  submitScore(totalDistance)
+}
+
+function submitScore(score) {
+  document.getElementById('scoreInput').value = score;
+  document.getElementById('scoring').submit();
+}
+
+function wingame() {
+  console.log("You win!");
+  cancelAnimationFrame(update);
+  dead = true
+  music.pause()
+
+  totalDistance += 10000
+  submitScore(totalDistance)
 }
 
