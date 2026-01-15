@@ -437,9 +437,9 @@ function endgame() {
 
 function submitScore(score) {
   document.getElementById('scoreInput').value = score;
+  document.getElementById('levelInput').value = level;
   document.getElementById('scoring').submit();
-  document.getElementByID('levelInput').value = level;
-  document.getElementByID('level').submit();
+  document.getElementById('level').submit();
 }
 
 function wingame() {

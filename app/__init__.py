@@ -67,19 +67,21 @@ def submit_score():
     if session.get('username'):
         score = request.form.get('score')
         level = request.form.get('level')
+        level_string = "level_" + str(level)
         username = session.get('username')
 
         db = sqlite3.connect(DB_FILE)
         c = db.cursor()
-        current_points, total_points = c.execute("SELECT ?, total_points FROM users WHERE username=?", (level, username,)).fetchone()
+        results = c.execute(f"SELECT {level_string}, total_points FROM users WHERE username=?;", (username,)).fetchone()
+
+        current_points, total_points = results[0], results[1]
 
         if current_points:
             if current_points[0] < score:
-                new_points = score
-            c.execute("UPDATE users SET ?=? total_points=? WHERE username=?", (level, new_points, total_points, username))
-            db.commit()
-            flash(f'New score recorded!', 'success')
-        db.commit()
+                c.execute(f"UPDATE users SET {level_string}=? total_points=? WHERE username=?", (score, total_points, username))
+                db.commit()
+                flash(f'New score recorded!', 'success')
+                db.commit()
         db.close()
         return redirect(url_for("game_get"))
     return(redirect(url_for("auth.login_get")))
