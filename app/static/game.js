@@ -27,12 +27,16 @@ var scrollSpeed = 8
 var jumping = false
 var hasJumped = false
 
+var gamemode = "Cube"
+
 var objects = [
   {tag: "spike", x: 1000, y: floorLocation + 10, width: 12, height: 30},
   {tag: "spike", x: 1050, y: floorLocation + 10, width: 12, height: 30},
   {tag: "spike", x: 1500, y: floorLocation - 50, width: 60, height: 110},
   {tag: "orb", x: 1425, y: floorLocation - 30, radius: 50},
-  {tag: "block", x: 1500, y: floorLocation - 50, width: 60, height: 110}
+  {tag: "ship", x: 2000, y: floorLocation - 50, width: 20, height: 110},
+  {tag: "cube", x: 2500, y: floorLocation - 50, width: 20, height: 110},
+  {tag: "ufo", x: 3000, y: floorLocation - 50, width: 20, height: 110}
 ]
 
 function update() {
@@ -42,7 +46,9 @@ function update() {
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  ctx.fillStyle = "cyan"
+  if (gamemode == "Cube") ctx.fillStyle = "cyan"
+  if (gamemode == "Ship") ctx.fillStyle = "purple"
+  if (gamemode == "UFO") ctx.fillStyle = "orange"
   ctx.fillRect(canvas.width/10, positionY, blocksize, blocksize);
 
   for (let i = 0; i < objects.length; i++) {
@@ -77,17 +83,41 @@ function update() {
       }
     }
 
-    // if (obj.tag == "block") {
-    //   ctx.fillStyle = "red"
-    //   ctx.fillRect(obj.x, obj.y, obj.width, obj.height)
+    if (obj.tag == "ship") {
+      ctx.fillStyle = "purple"
+      ctx.fillRect(obj.x, obj.y, obj.width, obj.height)
 
-    //   if (positionX + blocksize > obj.x &&
-    //       positionX < obj.x + obj.width &&
-    //       positionY + blocksize > obj.y &&
-    //       positionY < obj.y + obj.height) {
-    //     endgame()
-    //   }
-    // }
+      if (positionX + blocksize > obj.x &&
+          positionX < obj.x + obj.width &&
+          positionY + blocksize > obj.y &&
+          positionY < obj.y + obj.height) {
+        gamemode = "Ship"
+      }
+    }
+
+    if (obj.tag == "cube") {
+      ctx.fillStyle = "green"
+      ctx.fillRect(obj.x, obj.y, obj.width, obj.height)
+
+      if (positionX + blocksize > obj.x &&
+          positionX < obj.x + obj.width &&
+          positionY + blocksize > obj.y &&
+          positionY < obj.y + obj.height) {
+        gamemode = "Cube"
+      }
+    }
+
+    if (obj.tag == "ufo") {
+      ctx.fillStyle = "orange"
+      ctx.fillRect(obj.x, obj.y, obj.width, obj.height)
+
+      if (positionX + blocksize > obj.x &&
+          positionX < obj.x + obj.width &&
+          positionY + blocksize > obj.y &&
+          positionY < obj.y + obj.height) {
+        gamemode = "UFO"
+      }
+    }
   }
 
 
@@ -102,12 +132,33 @@ function update() {
     grounded = true
   }
 
+  if (velocityY > 20) {
+    velocityY = 20
+  }
+
   positionY += velocityY
   velocityY += accelerationY
 
-  if ((grounded == true && jumping == true) || (orbing == true && jumping == true && hasJumped == false)) {
-    velocityY = -12
-    hasJumped = true
+  if (gamemode == "Cube") {
+    if ((grounded == true && jumping == true) || (orbing == true && jumping == true && hasJumped == false)) {
+      velocityY = -12
+      gravity = 1
+      hasJumped = true
+    }
+  }
+  else if (gamemode == "Ship") {
+    if ((jumping == true) || (orbing == true && jumping == true && hasJumped == false)) {
+      velocityY = -7
+      gravity = 0.4
+      hasJumped = true
+    }
+  }
+  else if (gamemode == "UFO") {
+    if ((jumping == true && hasJumped == false) || (orbing == true && jumping == true && hasJumped == false)) {
+      velocityY = -8
+      gravity = 0.3
+      hasJumped = true
+    }
   }
 
   console.log(hasJumped);
