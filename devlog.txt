@@ -71,11 +71,11 @@ thamidurR -- 2026-01-14 22:00
 - Revamped jump mechanics
 - Implemented Ship and UFO game modes
 
-shafinK -- 2026-01-14 22:14 
-- added block objects 
-- fixed collisions 
+shafinK -- 2026-01-14 22:14
+- added block objects
+- fixed collisions
 - added restart level button
-- started level design 
+- started level design
 
 alvinS -- 2026-01-14 22:22
 - added image display functions
@@ -86,13 +86,13 @@ alvinS -- 2026-01-14 22:47
 - mild bug fixes with jumping and orb
 - also fixed restart
 
-shafinK -- 2026-01-14 23:15 
-- added songs 
-- changed spike overlay size 
+shafinK -- 2026-01-14 23:15
+- added songs
+- changed spike overlay size
 
 shafinK -- 2026-01-15 00:25
 - tested portal objects
-- added points form 
+- added points form
 - added wincon
 
 alvinS -- 2026-01-15 00:30
@@ -101,4 +101,8 @@ alvinS -- 2026-01-15 00:30
 shafinK -- 2026-01-15 00:43
 - small changes with sprite overlay
 - changed block color to black
-- fixed form resubmission bug that gave infinite points 
+- fixed form resubmission bug that gave infinite points
+
+thamidurR -- 2026-01-15 10:15
+- Added progress bar
+- Added to stage

@@ -52,6 +52,10 @@ var totalDistance = 0
 
 var buttons = []
 
+var progress = 0
+var diffLocation = 0
+var endLocation = 6500
+
 var button = (function () {
   function button(text, color, x, y, width, height){
     this.x = x
@@ -83,6 +87,7 @@ function start(){
   music.play()
   buttons = []
   dead = false;
+  progress = 0
   update()
 }
 
@@ -91,9 +96,8 @@ function startScreen(){
   var level1 = new button("levelOne", "orange", canvas.width/10, canvas.height/10, 80, 45)
   level1.onClick = function () {return start()}
   buttons.push(level1)
-
   logo.src = "https://media.tenor.com/ifD1GaekwpoAAAAj/uma-musume-agnes-tachyon.gif"
-  
+
   for (var i = 0; i < buttons.length; i ++) {
     return buttons[i].draw(ctx)
   }
@@ -101,8 +105,7 @@ function startScreen(){
 }
 
 var objects = [
-  {tag:"ship", x: 500, y: floorLocation - 50, width: 10, height: 110},
-  {tag:"cube", x: 750, y: floorLocation - 50, width: 10, height: 110},
+  {tag:"ship", x: 750, y: floorLocation - 50, width: 10, height: 110},
   {tag: "spike", x: 1000, y: floorLocation + 10, width: 12, height: 30},
   {tag: "spike", x: 1050, y: floorLocation + 10, width: 12, height: 30},
   {tag: "block", x: 1500, y: floorLocation - 50, width: 60, height: 110},
@@ -119,7 +122,11 @@ var objects = [
   {tag: "spike", x: 2000, y: floorLocation - 190, width: 12, height: 30},
   {tag: "orb", x: 2050, y: floorLocation - 220, radius: 30},
   {tag: "block", x: 2200, y: floorLocation - 200, width: 30, height: 60},
-  {tag: "finish", x: 2500, y: floorLocation - 900, width: 25, height: 1000}
+  {tag:"ship", x: 2500, y: floorLocation - 50, width: 10, height: 110},
+  {tag: "block", x:3000, y: floorLocation - 200, width: 500, height: 600},
+  {tag: "block", x:3000, y: floorLocation - 600, width: 500, height: 200},
+
+  {tag: "finish", x: 6500, y: floorLocation - 900, width: 25, height: 1000}
 ]
 
 function update() {
@@ -128,16 +135,23 @@ function update() {
   }
   ctx.drawImage(background, 0, 0);
 
+  progress = 1 - diffLocation / endLocation
+  if (progress < 0) progress = 0;
+  ctx.fillStyle = "grey"
+  ctx.fillRect(canvas.width / 3, 30, canvas.width / 3, canvas.height / 15);
+  ctx.fillStyle = "yellow"
+  ctx.fillRect(canvas.width / 3 + canvas.width / 150, 30 + canvas.height / 75, progress * (canvas.width / 3 - canvas.width / 75), canvas.height / 25);
+
   if (gamemode == "Cube") ctx.drawImage(tachywachy, canvas.width/10 - 15, positionY - (119 - blocksize));
   if (gamemode == "Ship") ctx.drawImage(tachyship, canvas.width/10 - 15, positionY - (119 - blocksize));
   if (gamemode == "UFO") ctx.fillStyle = "orange"
-  
+
   // ctx.fillRect(canvas.width/10, positionY, blocksize, blocksize);
 
   totalDistance += scrollSpeed
 
   let positionX = canvas.width / 10
-  let onBlock = false  
+  let onBlock = false
 
   for (let i = 0; i < objects.length; i++) {
     let obj = objects[i]
@@ -163,7 +177,7 @@ function update() {
           positionY + blocksize > obj.y &&
           positionY < obj.y + obj.radius) {
 
-          if (currentOrb !== obj) { 
+          if (currentOrb !== obj) {
             orbing = true
             currentOrb = obj
           }
@@ -173,6 +187,8 @@ function update() {
     if (obj.tag == "finish") {
       ctx.fillStyle = "green"
       ctx.fillRect(obj.x, obj.y, obj.width, obj.height)
+
+      diffLocation = obj.x - 150
 
       if (positionX + blocksize > obj.x &&
           positionX < obj.x + obj.width &&
@@ -282,7 +298,6 @@ function update() {
       hasJumped = true
     }
   }
-
   requestAnimationFrame(update);
 }
 
@@ -332,7 +347,7 @@ function restart() {
     {tag: "block", x: 2200, y: floorLocation - 200, width: 30, height: 60},
     {tag: "finish", x: 2500, y: floorLocation - 900, width: 25, height: 1000}
   ]
-  
+
   startScreen()
 }
 
@@ -381,7 +396,7 @@ function endgame() {
   cancelAnimationFrame(update);
   dead = true
   music.pause()
-  
+
   ctx.fillStyle = "white"
   ctx.font = "48px Arial"
   ctx.textAlign = "center"
@@ -403,4 +418,3 @@ function wingame() {
   totalDistance += 10000
   submitScore(totalDistance)
 }
-
