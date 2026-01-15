@@ -32,8 +32,9 @@ def register_post():
     c.execute("insert into users (username, password) values (?, ?)", (username, hashword))
     db.commit()
     db.close()
-    flash('Account registered successfully! Please log in.', 'success')
-    return redirect(url_for('auth.login_get'))
+    session["username"] = username
+    flash('Account registered successfully!', 'success')
+    return redirect(url_for('home_get'))
 
 @bp.get('/login')
 def login_get():
