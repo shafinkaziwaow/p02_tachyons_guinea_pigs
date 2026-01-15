@@ -98,7 +98,6 @@ function startScreen(){
   var level1 = new button("levelOne", "orange", canvas.width/10, canvas.height/10, 80, 45)
   level1.onClick = function () {return start()}
   buttons.push(level1)
-
   logo.src = "https://media.tenor.com/ifD1GaekwpoAAAAj/uma-musume-agnes-tachyon.gif"
 
   for (var i = 0; i < buttons.length; i ++) {
@@ -126,9 +125,20 @@ var objects = [
   {tag: "orb", x: 2050, y: floorLocation - 220, radius: 30},
   {tag: "block", x: 2200, y: floorLocation - 200, width: 30, height: 60},
   {tag:"ship", x: 2500, y: floorLocation - 50, width: 10, height: 110},
-  {tag: "block", x:3000, y: floorLocation - 200, width: 500, height: 600},
-  {tag: "block", x:3000, y: floorLocation - 600, width: 500, height: 200},
-
+  {tag: "block", x:3000, y: floorLocation - 200, width: 200, height: 600},
+  {tag: "block", x:3000, y: floorLocation - 600, width: 200, height: 200},
+  {tag: "block", x:3200, y: floorLocation - 250, width: 200, height: 600},
+  {tag: "block", x:3200, y: floorLocation - 650, width: 200, height: 200},
+  {tag: "block", x:3400, y: floorLocation - 275, width: 200, height: 600},
+  {tag: "block", x:3400, y: floorLocation - 675, width: 200, height: 200},
+  {tag: "block", x:3800, y: floorLocation - 200, width: 200, height: 600},
+  {tag: "block", x:3800, y: floorLocation - 600, width: 200, height: 200},
+  {tag: "block", x:3600, y: floorLocation - 650, width: 200, height: 200},
+  {tag: "block", x:3600, y: floorLocation - 250, width: 200, height: 600},
+  {tag: "block", x:4000, y: floorLocation - 550, width: 200, height: 200},
+  {tag: "block", x:4000, y: floorLocation - 150, width: 200, height: 600},
+  {tag: "block", x:4200, y: floorLocation - 500, width: 200, height: 200},
+  {tag: "block", x:4200, y: floorLocation - 100, width: 200, height: 600},
   {tag: "finish", x: 6500, y: floorLocation - 900, width: 25, height: 1000}
 ]
 
@@ -138,17 +148,11 @@ function update() {
   }
   ctx.drawImage(background, 0, 0);
 
-  progress = 1 - diffLocation / endLocation
-  if (progress < 0) progress = 0;
-  ctx.fillStyle = "grey"
-  ctx.fillRect(canvas.width / 3, 30, canvas.width / 3, canvas.height / 15);
-  ctx.fillStyle = "yellow"
-  ctx.fillRect(canvas.width / 3 + canvas.width / 150, 30 + canvas.height / 75, progress * (canvas.width / 3 - canvas.width / 75), canvas.height / 25);
-
   if (gamemode == "Cube") ctx.drawImage(tachywachy, canvas.width/10 - 15, positionY - (119 - blocksize));
   if (gamemode == "Ship") ctx.drawImage(tachyship, canvas.width/10 - 15, positionY - (119 - blocksize));
   if (gamemode == "UFO") ctx.fillStyle = "orange"
 
+  ctx.fillRect(canvas.width/10, positionY, blocksize, blocksize)
   // ctx.fillRect(canvas.width/10, positionY, blocksize, blocksize);
 
   totalDistance += scrollSpeed
@@ -163,10 +167,10 @@ function update() {
     if (obj.tag == "spike") {
       ctx.drawImage(spike, obj.x, obj.y, blocksize / 1.2, blocksize / 1.2)
 
-      if (positionX + blocksize > obj.x &&
-          positionX < obj.x + obj.width &&
-          positionY + blocksize > obj.y &&
-          positionY < obj.y + obj.height) {
+      if (positionX + blocksize > obj.x + 14 &&
+          positionX < obj.x + 14 + obj.width + 2 &&
+          positionY + blocksize > obj.y + 10 &&
+          positionY < obj.y + 10 + obj.height) {
         endgame()
       }
     }
@@ -301,6 +305,14 @@ function update() {
       hasJumped = true
     }
   }
+
+  progress = 1 - diffLocation / endLocation
+  if (progress < 0) progress = 0;
+  ctx.fillStyle = "grey"
+  ctx.fillRect(canvas.width / 3, 30, canvas.width / 3, canvas.height / 15);
+  ctx.fillStyle = "yellow"
+  ctx.fillRect(canvas.width / 3 + canvas.width / 150, 30 + canvas.height / 75, progress * (canvas.width / 3 - canvas.width / 75), canvas.height / 25);
+
   requestAnimationFrame(update);
 }
 
@@ -412,7 +424,6 @@ function submitScore(score) {
   document.getElementById('scoring').submit();
   document.getElementByID('levelInput').value = level;
   document.getElementByID('level').submit();
-
 }
 
 function wingame() {
