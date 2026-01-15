@@ -56,6 +56,8 @@ var progress = 0
 var diffLocation = 0
 var endLocation = 6500
 
+var level = 1
+
 var button = (function () {
   function button(text, color, x, y, width, height){
     this.x = x
@@ -96,6 +98,7 @@ function startScreen(){
   var level1 = new button("levelOne", "orange", canvas.width/10, canvas.height/10, 80, 45)
   level1.onClick = function () {return start()}
   buttons.push(level1)
+
   logo.src = "https://media.tenor.com/ifD1GaekwpoAAAAj/uma-musume-agnes-tachyon.gif"
 
   for (var i = 0; i < buttons.length; i ++) {
@@ -407,6 +410,9 @@ function endgame() {
 function submitScore(score) {
   document.getElementById('scoreInput').value = score;
   document.getElementById('scoring').submit();
+  document.getElementByID('levelInput').value = level;
+  document.getElementByID('level').submit();
+
 }
 
 function wingame() {
