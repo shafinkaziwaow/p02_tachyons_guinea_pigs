@@ -214,7 +214,13 @@ function update() {
           positionY + blocksize > obj.y &&
           positionY < obj.y + obj.height) {
 
-        if (positionY + blocksize - velocityY <= obj.y) {
+        if ((gamemode == "Ship" || gamemode == "UFO") &&
+            (positionY <= obj.y + obj.height)) {
+              positionY = obj.y + obj.height
+              velocityY = 0
+              accelerationY = 0
+            }
+        else if (positionY + blocksize - velocityY <= obj.y) {
           onBlock = true
           positionY = obj.y - blocksize
           velocityY = 0

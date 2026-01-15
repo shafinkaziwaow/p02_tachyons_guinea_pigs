@@ -110,3 +110,7 @@ thamidurR -- 2026-01-15 10:15
 seanT -- 2026-01-15 10:50
 - Style homepage better
 - Made max points per level and game, update accordingly
+
+shafinK -- 2026-01-15 11:23
+- roof collisions may work?
+- if not comment out that first if that goes if (gamemode == "Ship" || gamemode == "UFO")...
