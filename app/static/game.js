@@ -45,7 +45,7 @@ var currentOrb = null
 var jumping = false
 var hasJumped = false
 
-var gamemode = "Cube"
+var gamemode = "Ship"
 
 var scrollSpeed = 8
 var totalDistance = 0
@@ -107,13 +107,13 @@ function startScreen(){
 }
 
 var objects = [
-  {tag:"ship", x: 750, y: floorLocation - 50, width: 10, height: 110},
+  // {tag:"ship", x: 750, y: floorLocation - 50, width: 10, height: 110},
   {tag: "spike", x: 1000, y: floorLocation + 10, width: 12, height: 30},
   {tag: "spike", x: 1050, y: floorLocation + 10, width: 12, height: 30},
   {tag: "block", x: 1500, y: floorLocation - 50, width: 60, height: 110},
-  {tag: "orb", x: 1425, y: floorLocation - 40, radius: 30},
-  {tag: "orb", x: 1600, y: floorLocation - 40, radius: 30},
-  {tag: "orb", x: 1700, y: floorLocation - 100, radius: 30},
+  {tag: "orb", x: 1425, y: floorLocation - 40, width: 30, height: 30},
+  {tag: "orb", x: 1600, y: floorLocation - 40, width: 30, height: 30},
+  {tag: "orb", x: 1700, y: floorLocation - 100, width: 30, height: 30},
   {tag: "spike", x: 1600, y: floorLocation + 10, width: 12, height: 30},
   {tag: "spike", x: 1650, y: floorLocation + 10, width: 12, height: 30},
   {tag: "spike", x: 1700, y: floorLocation + 10, width: 12, height: 30},
@@ -122,7 +122,7 @@ var objects = [
   {tag: "spike", x: 1850, y: floorLocation + 10, width: 12, height: 30},
   {tag: "block", x: 1850, y: floorLocation - 150, width: 400, height: 20},
   {tag: "spike", x: 2000, y: floorLocation - 190, width: 12, height: 30},
-  {tag: "orb", x: 2050, y: floorLocation - 220, radius: 30},
+  {tag: "orb", x: 2050, y: floorLocation - 220, width: 30, height: 30},
   {tag: "block", x: 2200, y: floorLocation - 200, width: 30, height: 60},
   {tag:"ship", x: 2500, y: floorLocation - 50, width: 10, height: 110},
   {tag: "block", x:3000, y: floorLocation - 200, width: 200, height: 600},
@@ -139,7 +139,9 @@ var objects = [
   {tag: "block", x:4000, y: floorLocation - 150, width: 200, height: 600},
   {tag: "block", x:4200, y: floorLocation - 500, width: 200, height: 200},
   {tag: "block", x:4200, y: floorLocation - 100, width: 200, height: 600},
-  {tag: "finish", x: 6500, y: floorLocation - 900, width: 25, height: 1000}
+  {tag: "finish", x: 6500, y: floorLocation - 900, width: 25, height: 1000},
+  {tag: "block", x: 400, y: floorLocation - 60, width: 1000, height: 20},
+  {tag: "down", x: 2275, y: floorLocation - 275, width: 30, height: 30}
 ]
 
 function update() {
@@ -164,6 +166,25 @@ function update() {
     let obj = objects[i]
     obj.x -= scrollSpeed
 
+    if (obj.tag == "down") {
+      ctx.fillStyle = "cyan"
+      ctx.fillRect(obj.x, obj.y, obj.width, obj.height)
+      
+      if (positionX + blocksize > obj.x + 14 &&
+          positionX < obj.x + 14 + obj.width + 2 &&
+          positionY + blocksize > obj.y + 10 &&
+          positionY < obj.y + 10 + obj.height) {
+            
+            if (jumping && currentOrb !== obj) {
+              velocityY = 30
+              currentOrb = obj 
+            }
+          }
+          else if (currentOrb === obj) {
+            currentOrb = null
+          }
+    }
+
     if (obj.tag == "spike") {
       ctx.drawImage(spike, obj.x, obj.y, blocksize / 1.2, blocksize / 1.2)
 
@@ -177,12 +198,12 @@ function update() {
 
     if (obj.tag == "orb") {
       ctx.fillStyle = "gold"
-      ctx.fillRect(obj.x, obj.y, obj.radius, obj.radius)
+      ctx.fillRect(obj.x, obj.y, obj.width, obj.height)
 
       if (positionX + blocksize > obj.x &&
-          positionX < obj.x + obj.radius &&
+          positionX < obj.x + obj.width &&
           positionY + blocksize > obj.y &&
-          positionY < obj.y + obj.radius) {
+          positionY < obj.y + obj.height) {
 
           if (currentOrb !== obj) {
             orbing = true
@@ -214,14 +235,17 @@ function update() {
             positionY + blocksize > obj.y &&
             positionY < obj.y + obj.height) {
 
-            if (positionY + blocksize - velocityY <= obj.y) {
+            const tolerance = 8
+
+            if (previousPositionY + blocksize - velocityY <= obj.y + tolerance) {
                 onBlock = true
                 positionY = obj.y - blocksize
                 velocityY = 0
                 accelerationY = 0
                 grounded = true
             }
-            else if (velocityY < 0 && positionY + blocksize - velocityY > obj.y + obj.height) {
+            // else if (velocityY < 0 && previousPositionY + blocksize - velocityY > obj.y + obj.height) {
+            else if (previousPositionY >= obj.y + obj.height - tolerance && velocityY < 0) {
                 positionY = obj.y + obj.height
                 velocityY = 0
                 accelerationY = 0
@@ -231,6 +255,7 @@ function update() {
             }
         }
     }
+
 
     if (obj.tag == "ship") {
       ctx.fillStyle = "purple"
@@ -286,6 +311,7 @@ function update() {
 
   positionY += velocityY
   velocityY += accelerationY
+  previousPositionY = positionY
 
   if (gamemode == "Cube") {
     if ((grounded == true && jumping == true) || (orbing == true && jumping == true && hasJumped == false)) {
@@ -297,7 +323,7 @@ function update() {
   }
   else if (gamemode == "Ship") {
     if ((jumping == true) || (orbing == true && jumping == true && hasJumped == false)) {
-      velocityY = -7
+      velocityY = -5
       gravity = 0.4
       hasJumped = true
     }
@@ -346,26 +372,6 @@ function restart() {
   jumping = false
   hasJumped = false
   music.currentTime = 0
-
-  objects = [
-    {tag: "spike", x: 1000, y: floorLocation + 10, width: 12, height: 30},
-    {tag: "spike", x: 1050, y: floorLocation + 10, width: 12, height: 30},
-    {tag: "block", x: 1500, y: floorLocation - 50, width: 60, height: 110},
-    {tag: "orb", x: 1425, y: floorLocation - 40, radius: 30},
-    {tag: "orb", x: 1600, y: floorLocation - 40, radius: 30},
-    {tag: "orb", x: 1700, y: floorLocation - 100, radius: 30},
-    {tag: "spike", x: 1600, y: floorLocation + 10, width: 12, height: 30},
-    {tag: "spike", x: 1650, y: floorLocation + 10, width: 12, height: 30},
-    {tag: "spike", x: 1700, y: floorLocation + 10, width: 12, height: 30},
-    {tag: "spike", x: 1750, y: floorLocation + 10, width: 12, height: 30},
-    {tag: "spike", x: 1800, y: floorLocation + 10, width: 12, height: 30},
-    {tag: "spike", x: 1850, y: floorLocation + 10, width: 12, height: 30},
-    {tag: "block", x: 1850, y: floorLocation - 150, width: 400, height: 20},
-    {tag: "spike", x: 2000, y: floorLocation - 190, width: 12, height: 30},
-    {tag: "orb", x: 2050, y: floorLocation - 220, radius: 30},
-    {tag: "block", x: 2200, y: floorLocation - 200, width: 30, height: 60},
-    {tag: "finish", x: 2500, y: floorLocation - 900, width: 25, height: 1000}
-  ]
 
   startScreen()
 }
