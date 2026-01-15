@@ -20,7 +20,10 @@ def setup_database():
         CREATE TABLE IF NOT EXISTS users (
             username TEXT PRIMARY KEY,
             password TEXT,
-            points INTEGER DEFAULT 0
+            level_1 INTEGER DEFAULT 0,
+            level_2 INTEGER DEFAULT 0,
+            level_3 INTEGER DEFAULT 0,
+            total_points INTEGER DEFAULT 0
         );
     """)
     db.commit()
@@ -33,7 +36,7 @@ def home_get():
     if (session.get('username')):
         db = sqlite3.connect(DB_FILE)
         c = db.cursor()
-        temp = c.execute("SELECT * FROM users ORDER BY points DESC LIMIT 5")
+        temp = c.execute("SELECT * FROM users ORDER BY total_points DESC LIMIT 5")
         users = []
         for u in temp:
             list = []
@@ -42,7 +45,7 @@ def home_get():
             users.append(list)
         db.close()
         return render_template("home.html", users = users)
-    
+
     return(redirect(url_for("auth.login_get")))
 
 
@@ -63,17 +66,19 @@ def game_post():
 def submit_score():
     if session.get('username'):
         score = request.form.get('score')
+        level = request.form.get('level')
         username = session.get('username')
-        
+
         db = sqlite3.connect(DB_FILE)
         c = db.cursor()
-        current_points = c.execute("SELECT points FROM users WHERE username=?", (username,)).fetchone()
-        
+        current_points, total_points = c.execute("SELECT ?, total_points FROM users WHERE username=?", (level, username,)).fetchone()
+
         if current_points:
-            new_points = current_points[0] + int(score)
-            c.execute("UPDATE users SET points=? WHERE username=?", (new_points, username))
+            if current_points[0] < score:
+                new_points = score
+            c.execute("UPDATE users SET ?=? total_points=? WHERE username=?", (level, new_points, total_points, username))
             db.commit()
-            flash(f'Gained {score} points!', 'success')
+            flash(f'New score recorded!', 'success')
         db.commit()
         db.close()
         return redirect(url_for("game_get"))
