@@ -3,6 +3,10 @@
 // SoftDev pd4
 // p02
 // 2026-01-16f
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+var blocksize = 50
 
 const spike = new Image()
 spike.src = "../static/images/spike.png"
@@ -25,6 +29,8 @@ music.volume = 0.25
 const one = new Audio('../static/songs/tracen_ondo.mp3')
 const two = new Audio('../static/songs/umapyoi_densetsu.mp3')
 const three = new Audio('../static/songs/next_frontier.mp3')
+
+var floorLocation = canvas.height - blocksize
 
 const levelonemap = [
   {tag: "spike", x: 600, y: floorLocation + 10, width: 12, height: 30},
@@ -122,13 +128,6 @@ var accelerationY = 0
 
 var gravity = 1
 
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-
-var blocksize = 50
-
-var floorLocation = canvas.height - blocksize
-
 var grounded = true
 var orbing = false
 var currentOrb = null
@@ -183,10 +182,10 @@ function start(level){
   buttons = []
   dead = false;
   progress = 0
-  if (level === one){
+  if (level == one){
     objects = levelonemap
   }
-  else if (level === two){
+  else if (level == two){
     objects = leveltwomap
   }
   else{
@@ -209,15 +208,10 @@ function startScreen(){
   logo.src = "https://media.tenor.com/ifD1GaekwpoAAAAj/uma-musume-agnes-tachyon.gif"
 
   for (var i = 0; i < buttons.length; i ++) {
-    console.log(i)
     buttons[i].draw(ctx)
-
   }
 
 }
-
-
-objects = level1Objects
 
 function update() {
   if (dead){
@@ -237,7 +231,9 @@ function update() {
   let positionX = canvas.width / 10
   let onBlock = false
 
+  console.log(objects.length)
   for (let i = 0; i < objects.length; i++) {
+    console.log(objects[i])
     let obj = objects[i]
     obj.x -= scrollSpeed
 
