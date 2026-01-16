@@ -180,8 +180,17 @@ var level1Objects = [
   {tag: "spike", x: 5925, y: floorLocation + 10, width: 12, height: 30},
   {tag: "spike", x: 5975, y: floorLocation + 10, width: 12, height: 30},
   {tag: "spike", x: 6025, y: floorLocation + 10, width: 12, height: 30},
-  {tag: "spike", x: 6075, y: floorLocation + 10, width: 12, height: 30}
-
+  {tag: "spike", x: 6075, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "block", x: 6100, y: floorLocation - 100, width: 680, height: 20},
+  {tag: "spike", x: 6265, y: floorLocation - 140, width: 12, height: 30},
+  {tag: "orb", x: 6290, y: floorLocation - 200, width: 30, height: 30},
+  {tag: "block", x: 6365, y: floorLocation - 200, width: 20, height: 100},
+  {tag: "spike", x: 6615, y: floorLocation - 140, width: 12, height: 30},
+  {tag: "orb", x: 6640, y: floorLocation - 200, width: 30, height: 30},
+  {tag: "block", x: 6715, y: floorLocation - 200, width: 20, height: 100},
+  {tag: "ufo", x: 6750, y: floorLocation - 400, width: 20, height: 200},
+  
+  {tag: "finish", x: 7000, y: floorLocation - 900, width: 50, height: 1000},
 ]
 
 objects = level1Objects
@@ -194,7 +203,8 @@ function update() {
 
   if (gamemode == "Cube") ctx.drawImage(tachywachy, canvas.width/10 - 30, positionY - (119 - blocksize));
   if (gamemode == "Ship") ctx.drawImage(tachyship, canvas.width/10 - 30, positionY - (119 - blocksize));
-  if (gamemode == "UFO") ctx.fillStyle = "orange"
+  if (gamemode == "UFO")  ctx.drawImage(tachyship, canvas.width/10 - 30, positionY - (119 - blocksize));
+
 
   // ctx.fillRect(canvas.width/10, positionY, blocksize, blocksize)
   // ctx.fillRect(canvas.width/10, positionY, blocksize, blocksize);

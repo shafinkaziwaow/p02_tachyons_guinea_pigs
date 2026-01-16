@@ -128,3 +128,7 @@ shafinK -- 2026-01-15 17:25
 
 shafinK -- 2026-01-15 17:35
 - changed umapyoi densetsu to true instrumental
+
+shafinK -- 2026-01-15 19:43
+- shortened tracen_ondo.mp3 
+- finished level1
