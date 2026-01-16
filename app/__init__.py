@@ -79,14 +79,19 @@ def submit_score():
         results = c.execute(f"SELECT {level_string}, total_points FROM users WHERE username=?;", (username,)).fetchone()
 
         if results:
-            current_level_score = results[0] 
-            current_total_points = results[1] 
+            current_level_score = results[0]
+            current_total_points = results[1]
+            print("Current level score:", current_level_score)
+            print("Current total points:", current_total_points)
             if score > current_level_score:
+                print("If statement")
                 points_to_add = score - current_level_score
+                print("Points to add:", points_to_add)
                 new_total_points = current_total_points + points_to_add
-                c.execute(f"UPDATE users SET {level_string}=?, total_points=? WHERE username=?", 
+                print("New total points:", new_total_points)
+                c.execute(f"UPDATE users SET {level_string}=?, total_points=? WHERE username=?;", 
                          (score, new_total_points, username))
-                db.commit()
+                print(c.rowcount, "record(s) updated")
             
                 if result == "win":
                     flash(f'Level {level} completed! New high score: {score}', 'success')
@@ -97,8 +102,8 @@ def submit_score():
                     flash(f'Level {level} completed! Score: {score}', 'success')
                 else:
                     flash(f'Better luck next time! Score: {score}.', 'success')
-        
-        db.close()
+        db.commit()
+        c.close()
         return redirect(url_for("game_get"))
     flash("Please log in to use the website.", 'error')
     return redirect(url_for("auth.login_get"))
