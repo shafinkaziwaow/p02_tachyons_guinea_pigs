@@ -45,7 +45,7 @@ def home_get():
             users.append(list)
         db.close()
         return render_template("home.html", users = users)
-
+    flash("Please log in to use the website.", 'error')
     return(redirect(url_for("auth.login_get")))
 
 
@@ -53,6 +53,7 @@ def home_get():
 def game_get():
     if (session.get('username')):
         return render_template("game_scene.html")
+    flash("Please log in to use the website.", 'error')
     return(redirect(url_for("auth.login_get")))
 
 
@@ -60,31 +61,47 @@ def game_get():
 def game_post():
     if (session.get('username')):
         return redirect(url_for('game_get'))
+    flash("Please log in to use the website.", 'error')
     return(redirect(url_for("auth.login_get")))
 
 @app.route("/submit_score", methods=['POST'])
 def submit_score():
     if session.get('username'):
-        score = request.form.get('score')
-        level = request.form.get('level')
+        score = int(request.form.get('score', 0))
+        level = int(request.form.get('level', 1))
+        result = request.form.get('result')
         level_string = "level_" + str(level)
         username = session.get('username')
 
         db = sqlite3.connect(DB_FILE)
         c = db.cursor()
+        
         results = c.execute(f"SELECT {level_string}, total_points FROM users WHERE username=?;", (username,)).fetchone()
 
-        current_points, total_points = results[0], results[1]
-
-        if current_points:
-            if current_points[0] < score:
-                c.execute(f"UPDATE users SET {level_string}=? total_points=? WHERE username=?", (score, total_points, username))
+        if results:
+            current_level_score = results[0] 
+            current_total_points = results[1] 
+            if score > current_level_score:
+                points_to_add = score - current_level_score
+                new_total_points = current_total_points + points_to_add
+                c.execute(f"UPDATE users SET {level_string}=?, total_points=? WHERE username=?", 
+                         (score, new_total_points, username))
                 db.commit()
-                flash(f'New score recorded!', 'success')
-                db.commit()
+            
+                if result == "win":
+                    flash(f'Level {level} completed! New high score: {score}', 'success')
+                else:
+                    flash(f'New high score on Level {level}: {score}', 'success')
+            else:
+                if result == "win":
+                    flash(f'Level {level} completed! Score: {score}', 'success')
+                else:
+                    flash(f'Better luck next time! Score: {score}.', 'success')
+        
         db.close()
         return redirect(url_for("game_get"))
-    return(redirect(url_for("auth.login_get")))
+    flash("Please log in to use the website.", 'error')
+    return redirect(url_for("auth.login_get"))
 
 
 ### Useful general functions ###
