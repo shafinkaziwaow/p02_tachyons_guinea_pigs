@@ -47,6 +47,7 @@ const levelonemap = [
   {tag: "block", x: 1150, y: floorLocation - 50, width: 20, height: 100},
   {tag: "block", x: 1250, y: floorLocation - 50, width: 100, height: 20},
   {tag: "down", x: 1425, y: floorLocation - 150, width: 30, height: 30},
+  {tag: "spike", x: 1425, y: floorLocation + 10, width: 12, height: 30},
   {tag: "block", x: 1485, y: floorLocation - 200, width: 20, height: 100},
   {tag: "spike", x: 1620, y: floorLocation + 10, width: 12, height: 30},
   {tag: "block", x: 3300, y: floorLocation - 30, width: 580, height: 20},
@@ -572,7 +573,13 @@ function endgame() {
 
 function submitScore(score, result) {
  document.getElementById('scoreInput').value = score;
- document.getElementById('levelInput').value = level;
+ if (level == one) {
+  document.getElementById('levelInput').value = 1;
+ } else if (level == two) {
+  document.getElementById('levelInput').value = 2;
+ } else {
+  document.getElementById('levelInput').value = 3;
+ }
  document.getElementById('resultInput').value = result;
  document.getElementById('scoring').submit();
 }

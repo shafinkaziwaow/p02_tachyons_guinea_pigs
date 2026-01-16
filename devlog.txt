@@ -143,3 +143,6 @@ alvinS -- 2026-01-15 21:35
 - shortened umapyoi_densetsu.mp3
 - began level2
 - added different level functionality
+
+shafinK -- 2026-01-15 21:47
+- fixed issue with completion only displaying level 1
