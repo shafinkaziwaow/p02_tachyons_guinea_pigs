@@ -279,8 +279,8 @@ function update() {
   ctx.drawImage(background, 0, 0);
 
   if (gamemode == "Cube") ctx.drawImage(tachywachy, canvas.width/10 - 30, positionY - (119 - blocksize));
-  if (gamemode == "Ship") ctx.drawImage(tachyship, canvas.width/10 - 30, positionY - (119 - blocksize));
-  if (gamemode == "UFO") ctx.fillStyle = "orange"
+  if (gamemode == "Ship" || gamemode == "UFO") ctx.drawImage(tachyship, canvas.width/10 - 30, positionY - (119 - blocksize));
+  // if (gamemode == "UFO") ctx.fillStyle = "orange"
 
   // ctx.fillRect(canvas.width/10, positionY, blocksize, blocksize)
   // ctx.fillRect(canvas.width/10, positionY, blocksize, blocksize);
@@ -558,32 +558,31 @@ document.addEventListener("mouseup", e => {
 })
 
 function endgame() {
-  console.log("Game Over!");
-  cancelAnimationFrame(update);
-  dead = true
-  music.pause()
+ console.log("Game Over!");
+ cancelAnimationFrame(update);
+ dead = true
+ music.pause()
 
-  ctx.fillStyle = "white"
-  ctx.font = "48px Arial"
-  ctx.textAlign = "center"
-  ctx.fillText("Press R to return to Level Select", canvas.width / 2, canvas.height / 2)
-  submitScore(totalDistance)
+ ctx.fillStyle = "white"
+ ctx.font = "48px Arial"
+ ctx.textAlign = "center"
+ ctx.fillText("Press R to return to Level Select", canvas.width / 2, canvas.height / 2)
+ submitScore(totalDistance, "lose")
 }
 
-function submitScore(score) {
-  document.getElementById('scoreInput').value = score;
-  document.getElementById('levelInput').value = level;
-  document.getElementById('scoring').submit();
-  document.getElementById('level').submit();
+function submitScore(score, result) {
+ document.getElementById('scoreInput').value = score;
+ document.getElementById('levelInput').value = level;
+ document.getElementById('resultInput').value = result;
+ document.getElementById('scoring').submit();
 }
 
 function wingame() {
-  console.log("You win!");
-  cancelAnimationFrame(update);
-  dead = true
-  music.pause()
+ console.log("You win!");
+ cancelAnimationFrame(update);
+ dead = true
+ music.pause()
 
-  totalDistance += 10000
-  submitScore(totalDistance)
+ totalDistance += 10000
+ submitScore(totalDistance, "win")
 }
-

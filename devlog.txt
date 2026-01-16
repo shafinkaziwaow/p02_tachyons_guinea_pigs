@@ -133,6 +133,12 @@ shafinK -- 2026-01-15 19:43
 - shortened tracen_ondo.mp3 
 - finished level1
 
+shafinK -- 2026-01-15 20:30
+- fixed points system
+
+shafinK -- 2026-01-15 20:36
+- updated controls on homepage
+
 alvinS -- 2026-01-15 21:35
 - shortened umapyoi_densetsu.mp3
 - began level2
