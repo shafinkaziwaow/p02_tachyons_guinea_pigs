@@ -36,7 +36,7 @@ def home_get():
     if (session.get('username')):
         db = sqlite3.connect(DB_FILE)
         c = db.cursor()
-        temp = c.execute("SELECT * FROM users ORDER BY total_points DESC LIMIT 5")
+        temp = c.execute("SELECT * FROM users ORDER BY level_2 DESC LIMIT 5")
         users = []
         for u in temp:
             list = []
@@ -81,14 +81,9 @@ def submit_score():
         if results:
             current_level_score = results[0]
             current_total_points = results[1]
-            print("Current level score:", current_level_score)
-            print("Current total points:", current_total_points)
             if score > current_level_score:
-                print("If statement")
                 points_to_add = score - current_level_score
-                print("Points to add:", points_to_add)
                 new_total_points = current_total_points + points_to_add
-                print("New total points:", new_total_points)
                 c.execute(f"UPDATE users SET {level_string}=?, total_points=? WHERE username=?;", 
                          (score, new_total_points, username))
                 print(c.rowcount, "record(s) updated")
