@@ -1,3 +1,4 @@
+
 // Shafin Kazi, Alvin Sze, Thamidur Rahman, Sean Takahashi
 // Tachyons Guinea Pigs
 // SoftDev pd4
@@ -123,7 +124,42 @@ const levelonemap = [
 ]
 
 const leveltwomap = [
-  
+  {tag: "block", x: 800, y: floorLocation - 160, width: 300, height: 20},
+  {tag: "invspike", x: 810, y: floorLocation - 140, width: 12, height: 30},
+  {tag: "invspike", x: 850, y: floorLocation - 140, width: 12, height: 30},
+  {tag: "invspike", x: 890, y: floorLocation - 140, width: 12, height: 30},
+  {tag: "invspike", x: 930, y: floorLocation - 140, width: 12, height: 30},
+  {tag: "invspike", x: 970, y: floorLocation - 140, width: 12, height: 30},
+  {tag: "invspike", x: 1010, y: floorLocation - 140, width: 12, height: 30},
+  {tag: "invspike", x: 1050, y: floorLocation - 140, width: 12, height: 30},
+  {tag: "orb", x: 950, y: floorLocation - 50, width: 30, height: 30},
+  {tag: "block", x: 1250, y: floorLocation - 30, width: 30, height: 80},
+  {tag: "block", x: 1420, y: floorLocation - 80, width: 30, height: 160},
+  {tag: "block", x: 1590, y: floorLocation - 130, width: 30, height: 240},
+  {tag: "spike", x: 1620, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 1660, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 1700, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 1740, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "orb", x: 2000, y: floorLocation - 50 , width: 30, height: 30},
+  {tag: "block", x: 2190, y: floorLocation - 80, width: 300, height: 160},
+  {tag: "ship", x: 2500, y: floorLocation - 640, width: 15, height: 560},
+  {tag: "block", x: 2700, y: floorLocation - 400, width: 80, height: 80},
+  {tag: "block", x: 2800, y: floorLocation - 50, width: 80, height: 80},
+  {tag: "block", x: 2850, y: floorLocation - 250, width: 80, height: 80},
+  {tag: "block", x: 3000, y: floorLocation - 300, width: 80, height: 80},
+  {tag: "block", x: 3140, y: floorLocation - 500, width: 80, height: 80},
+  {tag: "block", x: 3220, y: floorLocation - 100, width: 80, height: 80},
+  {tag: "block", x: 3310, y: floorLocation - 200, width: 80, height: 80},
+  {tag: "block", x: 3380, y: floorLocation - 30, width: 80, height: 80},
+  {tag: "block", x: 3500, y: floorLocation - 350, width: 80, height: 80},
+  {tag: "block", x: 3700, y: floorLocation - 600, width: 80, height: 300},
+  {tag: "block", x: 3700, y: floorLocation - 100, width: 80, height: 300},
+  {tag: "cube", x: 3700, y: floorLocation - 300, width: 15, height: 200},
+  {tag: "orb", x: 4200, y: floorLocation - 50 , width: 30, height: 30},
+  {tag: "block", x: 4390, y: floorLocation - 80, width: 300, height: 160},
+
+
+  {tag: "finish", x: 10000, y: floorLocation - 900, width: 50, height: 1000},
 ]
 
 const levelthreemap = [
@@ -254,9 +290,9 @@ function update() {
   let positionX = canvas.width / 10
   let onBlock = false
 
-  console.log(objects.length)
+  //console.log(objects.length)
   for (let i = 0; i < objects.length; i++) {
-    console.log(objects[i])
+    //console.log(objects[i])
     let obj = objects[i]
     obj.x -= scrollSpeed
 
@@ -550,3 +586,4 @@ function wingame() {
   totalDistance += 10000
   submitScore(totalDistance)
 }
+
