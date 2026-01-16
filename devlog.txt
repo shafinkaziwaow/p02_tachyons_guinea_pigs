@@ -150,3 +150,6 @@ thamidurR & shafinK & alvinS 2026-01-15 22:34
 - more sprites
 - inverse spikes
 
+seanT -- 2026-01-15 11:38
+- Debug score database mechanism
+- Fixed leaderboard updating
