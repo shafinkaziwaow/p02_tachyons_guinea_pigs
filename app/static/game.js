@@ -22,6 +22,57 @@ background.src = "../static/images/Background.png"
 var music = new Audio('../static/songs/tracen_ondo.mp3');
 music.volume = 0.25
 
+const one = new Audio('../static/songs/tracen_ondo.mp3')
+const two = new Audio('../static/songs/umapyoi_densetsu.mp3')
+const three = new Audio('../static/songs/next_frontier.mp3')
+
+const levelonemap = [
+  // {tag:"ship", x: 750, y: floorLocation - 50, width: 10, height: 110},
+  {tag: "spike", x: 1000, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 1050, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "block", x: 1500, y: floorLocation - 50, width: 60, height: 110},
+  {tag: "orb", x: 1425, y: floorLocation - 40, width: 30, height: 30},
+  {tag: "orb", x: 1600, y: floorLocation - 40, width: 30, height: 30},
+  {tag: "orb", x: 1700, y: floorLocation - 100, width: 30, height: 30},
+  {tag: "spike", x: 1600, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 1650, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 1700, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 1750, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 1800, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 1850, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "block", x: 1850, y: floorLocation - 150, width: 400, height: 20},
+  {tag: "spike", x: 2000, y: floorLocation - 190, width: 12, height: 30},
+  {tag: "orb", x: 2050, y: floorLocation - 220, width: 30, height: 30},
+  {tag: "block", x: 2200, y: floorLocation - 200, width: 30, height: 60},
+  {tag:"ship", x: 2500, y: floorLocation - 50, width: 10, height: 110},
+  {tag: "block", x:3000, y: floorLocation - 200, width: 200, height: 600},
+  {tag: "block", x:3000, y: floorLocation - 600, width: 200, height: 200},
+  {tag: "block", x:3200, y: floorLocation - 250, width: 200, height: 600},
+  {tag: "block", x:3200, y: floorLocation - 650, width: 200, height: 200},
+  {tag: "block", x:3400, y: floorLocation - 275, width: 200, height: 600},
+  {tag: "block", x:3400, y: floorLocation - 675, width: 200, height: 200},
+  {tag: "block", x:3800, y: floorLocation - 200, width: 200, height: 600},
+  {tag: "block", x:3800, y: floorLocation - 600, width: 200, height: 200},
+  {tag: "block", x:3600, y: floorLocation - 650, width: 200, height: 200},
+  {tag: "block", x:3600, y: floorLocation - 250, width: 200, height: 600},
+  {tag: "block", x:4000, y: floorLocation - 550, width: 200, height: 200},
+  {tag: "block", x:4000, y: floorLocation - 150, width: 200, height: 600},
+  {tag: "block", x:4200, y: floorLocation - 500, width: 200, height: 200},
+  {tag: "block", x:4200, y: floorLocation - 100, width: 200, height: 600},
+  {tag: "finish", x: 6500, y: floorLocation - 900, width: 25, height: 1000},
+  {tag: "block", x: 400, y: floorLocation - 60, width: 1000, height: 20},
+  {tag: "down", x: 2275, y: floorLocation - 275, width: 30, height: 30}
+]
+
+const leveltwomap = [
+  
+]
+
+const levelthreemap = [
+  
+]
+
+var objects = []
 
 var dead = true
 
@@ -85,64 +136,47 @@ var button = (function () {
   return button
 }())
 
-function start(){
+function start(level){
+  music = level
+  music.volume = 0.18
   music.play()
   buttons = []
   dead = false;
   progress = 0
+  if (level === one){
+    objects = levelonemap
+  }
+  else if (level === two){
+    objects = leveltwomap
+  }
+  else{
+    objects = levelthreemap
+  }
   update()
 }
 
 function startScreen(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   var level1 = new button("levelOne", "orange", canvas.width/10, canvas.height/10, 80, 45)
-  level1.onClick = function () {return start()}
+  level1.onClick = function () {return start(one)}
   buttons.push(level1)
+  var level2 = new button("levelTwo", "orange", canvas.width/10, canvas.height/10 + 55, 80, 45)
+  level2.onClick = function () {return start(two)}
+  buttons.push(level2)
+  var level3 = new button("levelThree", "orange", canvas.width/10, canvas.height/10 + 110, 80, 45)
+  level3.onClick = function () {return start(three)}
+  buttons.push(level3)
   logo.src = "https://media.tenor.com/ifD1GaekwpoAAAAj/uma-musume-agnes-tachyon.gif"
 
   for (var i = 0; i < buttons.length; i ++) {
-    return buttons[i].draw(ctx)
+    console.log(i)
+    buttons[i].draw(ctx)
+
   }
 
 }
 
-var objects = [
-  // {tag:"ship", x: 750, y: floorLocation - 50, width: 10, height: 110},
-  {tag: "spike", x: 1000, y: floorLocation + 10, width: 12, height: 30},
-  {tag: "spike", x: 1050, y: floorLocation + 10, width: 12, height: 30},
-  {tag: "block", x: 1500, y: floorLocation - 50, width: 60, height: 110},
-  {tag: "orb", x: 1425, y: floorLocation - 40, width: 30, height: 30},
-  {tag: "orb", x: 1600, y: floorLocation - 40, width: 30, height: 30},
-  {tag: "orb", x: 1700, y: floorLocation - 100, width: 30, height: 30},
-  {tag: "spike", x: 1600, y: floorLocation + 10, width: 12, height: 30},
-  {tag: "spike", x: 1650, y: floorLocation + 10, width: 12, height: 30},
-  {tag: "spike", x: 1700, y: floorLocation + 10, width: 12, height: 30},
-  {tag: "spike", x: 1750, y: floorLocation + 10, width: 12, height: 30},
-  {tag: "spike", x: 1800, y: floorLocation + 10, width: 12, height: 30},
-  {tag: "spike", x: 1850, y: floorLocation + 10, width: 12, height: 30},
-  {tag: "block", x: 1850, y: floorLocation - 150, width: 400, height: 20},
-  {tag: "spike", x: 2000, y: floorLocation - 190, width: 12, height: 30},
-  {tag: "orb", x: 2050, y: floorLocation - 220, width: 30, height: 30},
-  {tag: "block", x: 2200, y: floorLocation - 200, width: 30, height: 60},
-  {tag:"ship", x: 2500, y: floorLocation - 50, width: 10, height: 110},
-  {tag: "block", x:3000, y: floorLocation - 200, width: 200, height: 600},
-  {tag: "block", x:3000, y: floorLocation - 600, width: 200, height: 200},
-  {tag: "block", x:3200, y: floorLocation - 250, width: 200, height: 600},
-  {tag: "block", x:3200, y: floorLocation - 650, width: 200, height: 200},
-  {tag: "block", x:3400, y: floorLocation - 275, width: 200, height: 600},
-  {tag: "block", x:3400, y: floorLocation - 675, width: 200, height: 200},
-  {tag: "block", x:3800, y: floorLocation - 200, width: 200, height: 600},
-  {tag: "block", x:3800, y: floorLocation - 600, width: 200, height: 200},
-  {tag: "block", x:3600, y: floorLocation - 650, width: 200, height: 200},
-  {tag: "block", x:3600, y: floorLocation - 250, width: 200, height: 600},
-  {tag: "block", x:4000, y: floorLocation - 550, width: 200, height: 200},
-  {tag: "block", x:4000, y: floorLocation - 150, width: 200, height: 600},
-  {tag: "block", x:4200, y: floorLocation - 500, width: 200, height: 200},
-  {tag: "block", x:4200, y: floorLocation - 100, width: 200, height: 600},
-  {tag: "finish", x: 6500, y: floorLocation - 900, width: 25, height: 1000},
-  {tag: "block", x: 400, y: floorLocation - 60, width: 1000, height: 20},
-  {tag: "down", x: 2275, y: floorLocation - 275, width: 30, height: 30}
-]
+
 
 function update() {
   if (dead){
