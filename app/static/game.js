@@ -206,7 +206,7 @@ var progress = 0
 var diffLocation = 0
 var endLocation = 6500
 
-var level = 1
+var true_level = 1
 
 var button = (function () {
   function button(text, color, x, y, width, height){
@@ -244,12 +244,15 @@ function start(level){
   progress = 0
   if (level == one){
     objects = levelonemap
+    true_level = 1
   }
   else if (level == two){
     objects = leveltwomap
+    true_level = 2
   }
   else{
     objects = levelthreemap
+    true_level = 3
   }
   update()
 }
@@ -573,13 +576,7 @@ function endgame() {
 
 function submitScore(score, result) {
  document.getElementById('scoreInput').value = score;
- if (level == one) {
-  document.getElementById('levelInput').value = 1;
- } else if (level == two) {
-  document.getElementById('levelInput').value = 2;
- } else {
-  document.getElementById('levelInput').value = 3;
- }
+ document.getElementById('levelInput').value = true_level;
  document.getElementById('resultInput').value = result;
  document.getElementById('scoring').submit();
 }
