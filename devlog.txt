@@ -143,3 +143,9 @@ alvinS -- 2026-01-15 21:35
 - shortened umapyoi_densetsu.mp3
 - began level2
 - added different level functionality
+
+thamidurR & shafinK & alvinS 2026-01-15 22:34
+- finished levels
+- polished gameplay
+- more sprites
+- inverse spikes

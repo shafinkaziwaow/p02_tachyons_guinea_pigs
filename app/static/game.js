@@ -24,19 +24,22 @@ tachywachy.src = "../static/images/TachyWachy.png"
 const tachyship = new Image()
 tachyship.src = "../static/images/TachyShip.png"
 
+const tachyufo = new Image()
+tachyufo.src = "../static/images/TachyUFO.png"
+
 const background = new Image()
 background.src = "../static/images/Background.png"
 
 var music = new Audio('../static/songs/tracen_ondo.mp3');
 music.volume = 0.25
 
-const one = new Audio('../static/songs/tracen_ondo.mp3')
-const two = new Audio('../static/songs/umapyoi_densetsu.mp3')
+const two = new Audio('../static/songs/tracen_ondo.mp3')
+const one = new Audio('../static/songs/umapyoi_densetsu.mp3')
 const three = new Audio('../static/songs/next_frontier.mp3')
 
 var floorLocation = canvas.height - blocksize
 
-const levelonemap = [
+const leveltwomap = [
   {tag: "spike", x: 600, y: floorLocation + 10, width: 12, height: 30},
   {tag: "spike", x: 650, y: floorLocation + 10, width: 12, height: 30},
   {tag: "orb", x: 675, y: floorLocation - 50, width: 30, height: 30},
@@ -47,6 +50,7 @@ const levelonemap = [
   {tag: "block", x: 1150, y: floorLocation - 50, width: 20, height: 100},
   {tag: "block", x: 1250, y: floorLocation - 50, width: 100, height: 20},
   {tag: "down", x: 1425, y: floorLocation - 150, width: 30, height: 30},
+  {tag: "spike", x: 1425, y: floorLocation + 10, width: 12, height: 30},
   {tag: "block", x: 1485, y: floorLocation - 200, width: 20, height: 100},
   {tag: "spike", x: 1620, y: floorLocation + 10, width: 12, height: 30},
   {tag: "block", x: 3300, y: floorLocation - 30, width: 580, height: 20},
@@ -123,7 +127,7 @@ const levelonemap = [
   {tag: "finish", x: 7000, y: floorLocation - 900, width: 50, height: 1000},
 ]
 
-const leveltwomap = [
+const levelonemap = [
   {tag: "block", x: 800, y: floorLocation - 160, width: 300, height: 20},
   {tag: "invspike", x: 810, y: floorLocation - 140, width: 12, height: 30},
   {tag: "invspike", x: 850, y: floorLocation - 140, width: 12, height: 30},
@@ -157,9 +161,12 @@ const leveltwomap = [
   {tag: "cube", x: 3700, y: floorLocation - 300, width: 15, height: 200},
   {tag: "orb", x: 4200, y: floorLocation - 50 , width: 30, height: 30},
   {tag: "block", x: 4390, y: floorLocation - 80, width: 300, height: 160},
-
-
-  {tag: "finish", x: 10000, y: floorLocation - 900, width: 50, height: 1000},
+  {tag: "spike", x: 4460, y: floorLocation - 120, width: 12, height: 30},
+  {tag: "spike", x: 4650, y: floorLocation - 120, width: 12, height: 30},
+  {tag: "block", x: 4690, y: floorLocation - 150, width: 300, height: 260},
+  {tag: "spike", x: 4800, y: floorLocation - 190, width: 12, height: 30},
+  {tag: "block", x: 4690, y: floorLocation - 150, width: 300, height: 260},
+  {tag: "finish", x: 5000, y: floorLocation - 900, width: 50, height: 1000},
 ]
 
 const levelthreemap = [
@@ -171,10 +178,149 @@ const levelthreemap = [
   {tag: "spike", x: 900, y: floorLocation + 10, width: 12, height: 30},
   {tag: "block", x:1000, y: floorLocation - 700, width: 50, height: 600},
   {tag: "ship", x: 1000, y: floorLocation - 100, width: 20, height: 200},
-  {tag: "block", x:1200, y: floorLocation - 30, width: 40, height:300},
-  {tag: "spike", x: 1200, y: floorLocation - 70, width: 12, height: 30},
-  {tag: "block", x:1200, y: floorLocation - 800, width: 40, height: 600},
-  {tag: "invspike", x: 1200, y: floorLocation - 200, width: 12, height: 30},
+  {tag: "block", x:1200, y: floorLocation - 60, width: 40, height:300},
+  {tag: "spike", x: 1200, y: floorLocation - 100, width: 12, height: 30},
+  {tag: "block", x:1200, y: floorLocation - 820 - 20, width: 40, height: 600},
+  {tag: "invspike", x: 1200, y: floorLocation - 220 - 20, width: 12, height: 30},
+  {tag: "block", x:1280, y: floorLocation - 90, width: 40, height:300},
+  {tag: "spike", x: 1280, y: floorLocation - 130, width: 12, height: 30},
+  {tag: "block", x:1280, y: floorLocation - 850 - 20, width: 40, height: 600},
+  {tag: "invspike", x: 1280, y: floorLocation - 250 - 20, width: 12, height: 30},
+  {tag: "block", x:1360, y: floorLocation - 105, width: 40, height:300},
+  {tag: "spike", x: 1360, y: floorLocation - 145, width: 12, height: 30},
+  {tag: "block", x:1360, y: floorLocation - 865 - 20, width: 40, height: 600},
+  {tag: "invspike", x: 1360, y: floorLocation - 265 - 20, width: 12, height: 30},
+  {tag: "block", x:1440, y: floorLocation - 90, width: 40, height:300},
+  {tag: "spike", x: 1440, y: floorLocation - 130, width: 12, height: 30},
+  {tag: "block", x:1440, y: floorLocation - 850 - 20, width: 40, height: 600},
+  {tag: "invspike", x: 1440, y: floorLocation - 250 - 20, width: 12, height: 30},
+  {tag: "block", x:1520, y: floorLocation - 60, width: 40, height:300},
+  {tag: "spike", x: 1520, y: floorLocation - 100, width: 12, height: 30},
+  {tag: "block", x:1520, y: floorLocation - 820 - 20, width: 40, height: 600},
+  {tag: "invspike", x: 1520, y: floorLocation - 220 - 20, width: 12, height: 30},
+  {tag: "block", x:1600, y: floorLocation - 60, width: 40, height:300},
+  {tag: "spike", x: 1600, y: floorLocation - 100, width: 12, height: 30},
+  {tag: "block", x:1600, y: floorLocation - 820 - 30, width: 40, height: 600},
+  {tag: "invspike", x: 1600, y: floorLocation - 220 - 30, width: 12, height: 30},
+  {tag: "block", x:1680, y: floorLocation - 60, width: 40, height:300},
+  {tag: "spike", x: 1680, y: floorLocation - 100, width: 12, height: 30},
+  {tag: "block", x:1680, y: floorLocation - 820 - 30, width: 40, height: 600},
+  {tag: "invspike", x: 1680, y: floorLocation - 220 - 30, width: 12, height: 30},
+  {tag: "block", x:1760, y: floorLocation - 60, width: 40, height:300},
+  {tag: "spike", x: 1760, y: floorLocation - 100, width: 12, height: 30},
+  {tag: "block", x:1760, y: floorLocation - 820 - 30, width: 40, height: 600},
+  {tag: "invspike", x: 1760, y: floorLocation - 220 - 30, width: 12, height: 30},
+  {tag: "block", x:1840, y: floorLocation - 60, width: 40, height:300},
+  {tag: "spike", x: 1840, y: floorLocation - 100, width: 12, height: 30},
+  {tag: "block", x:1840, y: floorLocation - 820 - 30, width: 40, height: 600},
+  {tag: "invspike", x: 1840, y: floorLocation - 220 - 30, width: 12, height: 30},
+  {tag: "block", x:1920, y: floorLocation - 60, width: 40, height:300},
+  {tag: "spike", x: 1920, y: floorLocation - 100, width: 12, height: 30},
+  {tag: "block", x:1920, y: floorLocation - 820 - 30, width: 40, height: 600},
+  {tag: "invspike", x: 1920, y: floorLocation - 220 - 30, width: 12, height: 30},
+  {tag: "block", x:2000, y: floorLocation - 60, width: 40, height:300},
+  {tag: "spike", x: 2000, y: floorLocation - 100, width: 12, height: 30},
+  {tag: "block", x:2000, y: floorLocation - 820 - 30, width: 40, height: 600},
+  {tag: "invspike", x: 2000, y: floorLocation - 220 - 30, width: 12, height: 30},
+  {tag: "ufo", x: 2000, y: floorLocation - 200, width: 20, height: 100},
+
+  {tag: "block", x:2150, y: floorLocation - 125, width: 40, height:300},
+  {tag: "spike", x: 2150, y: floorLocation - 165, width: 12, height: 30},
+  {tag: "block", x:2150, y: floorLocation - 900, width: 40, height: 600},
+  {tag: "invspike", x: 2150, y: floorLocation - 300, width: 12, height: 30},
+
+  {tag: "block", x:2250, y: floorLocation - 125 - 75, width: 40, height:300},
+  {tag: "spike", x: 2250, y: floorLocation - 165 - 75, width: 12, height: 30},
+  {tag: "block", x:2250, y: floorLocation - 900 - 75, width: 40, height: 600},
+  {tag: "invspike", x: 2250, y: floorLocation - 300 - 75, width: 12, height: 30},
+
+  {tag: "down", x:2300, y: floorLocation - 350, width: 30, height: 30},
+
+  {tag: "block", x:2500, y: floorLocation - 125 + 180, width: 40, height:300},
+  {tag: "spike", x: 2500, y: floorLocation - 165 + 180, width: 12, height: 30},
+  {tag: "block", x:2500, y: floorLocation - 900 + 150, width: 40, height: 600},
+  {tag: "invspike", x: 2500, y: floorLocation - 300 + 150, width: 12, height: 30},
+
+  {tag: "block", x:2600, y: floorLocation - 125 + 120, width: 40, height:300},
+  {tag: "spike", x: 2600, y: floorLocation - 165 + 120, width: 12, height: 30},
+  {tag: "block", x:2600, y: floorLocation - 900 + 90, width: 40, height: 600},
+  {tag: "invspike", x: 2600, y: floorLocation - 300 + 90, width: 12, height: 30},
+
+  {tag: "block", x:2900, y: floorLocation - 125 - 80, width: 40, height:300},
+  {tag: "spike", x: 2900, y: floorLocation - 165 - 80, width: 12, height: 30},
+  {tag: "block", x:2900, y: floorLocation - 900 - 80, width: 40, height: 600},
+  {tag: "invspike", x: 2900, y: floorLocation - 300 - 80, width: 12, height: 30},
+
+  {tag: "block", x:3200, y: floorLocation - 125 - 200, width: 40, height:500},
+  {tag: "spike", x: 3200, y: floorLocation - 165 - 200, width: 12, height: 30},
+  {tag: "block", x:3200, y: floorLocation - 900 - 200, width: 40, height: 600},
+  {tag: "invspike", x: 3200, y: floorLocation - 300 - 200, width: 12, height: 30},
+
+  {tag: "block", x:3400, y: floorLocation - 900 - 200, width: 40, height: 600},
+  {tag: "block", x:3300, y: floorLocation - 125 - 200, width: 140, height:500},
+  {tag: "cube", x: 3400, y: floorLocation - 500, width: 20, height: 175},
+
+  {tag: "block", x: 3450, y: floorLocation - 200, width: 600, height:500},
+  {tag: "orb", x: 3550, y: floorLocation - 300, width: 30, height: 30},
+  {tag: "spike", x: 3450, y: floorLocation - 200 - 40, width: 12, height: 30},
+  {tag: "spike", x: 3500, y: floorLocation - 200 - 40, width: 12, height: 30},
+  {tag: "spike", x: 3550, y: floorLocation - 200 - 40, width: 12, height: 30},
+  {tag: "spike", x: 3600, y: floorLocation - 200 - 40, width: 12, height: 30},
+  {tag: "spike", x: 3650, y: floorLocation - 200 - 40, width: 12, height: 30},
+  {tag: "spike", x: 3900, y: floorLocation - 200 - 40, width: 12, height: 30},
+  {tag: "spike", x: 3950, y: floorLocation - 200 - 40, width: 12, height: 30},
+  {tag: "orb", x: 4000, y: floorLocation - 300, width: 30, height: 30},
+
+  {tag: "block", x: 4100, y: floorLocation - 300, width: 500, height:20},
+  {tag: "spike", x: 4200, y: floorLocation - 300 - 40, width: 12, height: 30},
+  {tag: "spike", x: 4250, y: floorLocation - 300 - 40, width: 12, height: 30},
+  {tag: "spike", x: 4300, y: floorLocation - 300 - 40, width: 12, height: 30},
+  {tag: "orb", x: 4150, y: floorLocation - 200, width: 30, height: 30},
+  {tag: "block", x:4300, y: floorLocation - 300, width: 40, height: 250},
+  {tag: "spike", x: 4500 - 50, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 4550 - 50, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "block", x:4750 - 50, y: floorLocation - 20, width: 40, height:300},
+  {tag: "block", x:5000 - 50, y: floorLocation - 20, width: 40, height:300},
+  {tag: "spike", x: 5040 - 50, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 5090 - 50, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 5140 - 50, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "orb", x: 5090 - 50, y: floorLocation - 20, width: 30, height: 30},
+
+  {tag: "orb", x: 5150 + 150, y: floorLocation - 20 + 20, width: 30, height: 30},
+  {tag: "orb", x: 5350 + 150 - 25, y: floorLocation - 50 + 20, width: 30, height: 30},
+  {tag: "orb", x: 5550 + 150 - 50, y: floorLocation - 80 + 20, width: 30, height: 30},
+  {tag: "orb", x: 5750 + 150 - 75, y: floorLocation - 110 + 20, width: 30, height: 30},
+  {tag: "orb", x: 5950 + 150 - 100, y: floorLocation - 140 + 20, width: 30, height: 30},
+  {tag: "orb", x: 6150 + 150 - 125, y: floorLocation - 170 + 20, width: 30, height: 30},
+  {tag: "orb", x: 6350 + 150 - 150, y: floorLocation - 200 + 20, width: 30, height: 30},
+  {tag: "orb", x: 6550 + 150 - 175, y: floorLocation - 230 + 20, width: 30, height: 30},
+  {tag: "spike", x: 5475, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 5475 + 50, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 5475 + 100, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 5475 + 150, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 5475 + 200, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 5475 + 250, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 5475 + 300, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 5475 + 350, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 5475 + 400, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 5475 + 450, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 5475 + 500, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 5475 + 550, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 5475 + 600, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 5475 + 650, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 5475 + 700, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 5475 + 750, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 5475 + 800, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 5475 + 850, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 5475 + 900, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 5475 + 950, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 5475 + 1000, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 5475 + 1050, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 5475 + 1100, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 5475 + 1150, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 5475 + 1200, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "block", x:6675, y: floorLocation - 250, width: 200, height:500},
+  {tag: "finish", x: 6875, y: floorLocation - 900, width: 50, height: 1000},
 ]
 
 var objects = []
@@ -255,13 +401,13 @@ function start(level){
 
 function startScreen(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  var level1 = new button("levelOne", "orange", canvas.width/10, canvas.height/10, 80, 45)
+  var level1 = new button("Level One", "orange", canvas.width/10, canvas.height/10, 90, 45)
   level1.onClick = function () {return start(one)}
   buttons.push(level1)
-  var level2 = new button("levelTwo", "orange", canvas.width/10, canvas.height/10 + 55, 80, 45)
+  var level2 = new button("Level Two", "orange", canvas.width/10, canvas.height/10 + 55, 90, 45)
   level2.onClick = function () {return start(two)}
   buttons.push(level2)
-  var level3 = new button("levelThree", "orange", canvas.width/10, canvas.height/10 + 110, 80, 45)
+  var level3 = new button("Level Three", "orange", canvas.width/10, canvas.height/10 + 110, 90, 45)
   level3.onClick = function () {return start(three)}
   buttons.push(level3)
   logo.src = "https://media.tenor.com/ifD1GaekwpoAAAAj/uma-musume-agnes-tachyon.gif"
@@ -279,7 +425,9 @@ function update() {
   ctx.drawImage(background, 0, 0);
 
   if (gamemode == "Cube") ctx.drawImage(tachywachy, canvas.width/10 - 30, positionY - (119 - blocksize));
-  if (gamemode == "Ship" || gamemode == "UFO") ctx.drawImage(tachyship, canvas.width/10 - 30, positionY - (119 - blocksize));
+  if (gamemode == "Ship") ctx.drawImage(tachyship, canvas.width/10 - 30, positionY - (119 - blocksize));
+  if (gamemode == "UFO") ctx.drawImage(tachyufo, canvas.width/10 - 30, positionY - (119 - blocksize));
+  
   // if (gamemode == "UFO") ctx.fillStyle = "orange"
 
   // ctx.fillRect(canvas.width/10, positionY, blocksize, blocksize)
@@ -297,7 +445,7 @@ function update() {
     obj.x -= scrollSpeed
 
     if (obj.tag == "down") {
-      ctx.fillStyle = "black"
+      ctx.fillStyle = "blue"
       ctx.fillRect(obj.x, obj.y, obj.width, obj.height)
       
       if (positionX + blocksize > obj.x + 14 &&
@@ -470,10 +618,12 @@ function update() {
     }
   }
   else if (gamemode == "UFO") {
-    if ((jumping == true && hasJumped == false) || (orbing == true && jumping == true && hasJumped == false)) {
-      velocityY = -8
-      gravity = 0.3
-      hasJumped = true
+    if (orbing == false) {
+      if ((jumping == true && hasJumped == false)) {
+        velocityY = -8
+        gravity = 0.3
+        hasJumped = true
+      }
     }
   }
 
@@ -566,7 +716,6 @@ function endgame() {
  ctx.fillStyle = "white"
  ctx.font = "48px Arial"
  ctx.textAlign = "center"
- ctx.fillText("Press R to return to Level Select", canvas.width / 2, canvas.height / 2)
  submitScore(totalDistance, "lose")
 }
 
