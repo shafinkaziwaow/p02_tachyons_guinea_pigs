@@ -11,6 +11,9 @@ var blocksize = 50
 const spike = new Image()
 spike.src = "../static/images/spike.png"
 
+const invspike = new Image()
+invspike.src = "../static/images/invspike.png"
+
 const logo = new Image()
 logo.src = "https://media.tenor.com/ifD1GaekwpoAAAAj/uma-musume-agnes-tachyon.gif"
 
@@ -124,7 +127,18 @@ const leveltwomap = [
 ]
 
 const levelthreemap = [
-  
+  {tag: "orb", x: 400, y: floorLocation - 100, width: 30, height: 30},
+  {tag: "block", x:550, y: floorLocation - 100, width: 100, height: 600},
+  {tag: "down", x:700, y: floorLocation - 200, width: 30, height: 30},
+  {tag: "block", x:770, y: floorLocation - 700, width: 50, height: 600},
+  {tag: "spike", x: 850, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "spike", x: 900, y: floorLocation + 10, width: 12, height: 30},
+  {tag: "block", x:1000, y: floorLocation - 700, width: 50, height: 600},
+  {tag: "ship", x: 1000, y: floorLocation - 100, width: 20, height: 200},
+  {tag: "block", x:1200, y: floorLocation - 30, width: 40, height:300},
+  {tag: "spike", x: 1200, y: floorLocation - 70, width: 12, height: 30},
+  {tag: "block", x:1200, y: floorLocation - 800, width: 40, height: 600},
+  {tag: "invspike", x: 1200, y: floorLocation - 200, width: 12, height: 30},
 ]
 
 var objects = []
@@ -230,8 +244,7 @@ function update() {
 
   if (gamemode == "Cube") ctx.drawImage(tachywachy, canvas.width/10 - 30, positionY - (119 - blocksize));
   if (gamemode == "Ship") ctx.drawImage(tachyship, canvas.width/10 - 30, positionY - (119 - blocksize));
-  if (gamemode == "UFO")  ctx.drawImage(tachyship, canvas.width/10 - 30, positionY - (119 - blocksize));
-
+  if (gamemode == "UFO") ctx.fillStyle = "orange"
 
   // ctx.fillRect(canvas.width/10, positionY, blocksize, blocksize)
   // ctx.fillRect(canvas.width/10, positionY, blocksize, blocksize);
@@ -248,7 +261,7 @@ function update() {
     obj.x -= scrollSpeed
 
     if (obj.tag == "down") {
-      ctx.fillStyle = "cyan"
+      ctx.fillStyle = "black"
       ctx.fillRect(obj.x, obj.y, obj.width, obj.height)
       
       if (positionX + blocksize > obj.x + 14 &&
@@ -273,6 +286,17 @@ function update() {
           positionX < obj.x + 14 + obj.width + 2 &&
           positionY + blocksize > obj.y + 10 &&
           positionY < obj.y + 10 + obj.height) {
+        endgame()
+      }
+    }
+
+    if (obj.tag == "invspike") {
+      ctx.drawImage(invspike, obj.x, obj.y, blocksize / 1.2, blocksize / 1.2)
+
+      if (positionX + blocksize > obj.x + 14 &&
+          positionX < obj.x + 14 + obj.width + 2 &&
+          positionY + blocksize > obj.y + 4 &&
+          positionY < obj.y + 4 + obj.height) {
         endgame()
       }
     }
