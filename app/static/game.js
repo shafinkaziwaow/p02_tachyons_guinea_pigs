@@ -3,6 +3,10 @@
 // SoftDev pd4
 // p02
 // 2026-01-16f
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+var blocksize = 50
 
 const spike = new Image()
 spike.src = "../static/images/spike.png"
@@ -22,91 +26,13 @@ background.src = "../static/images/Background.png"
 var music = new Audio('../static/songs/tracen_ondo.mp3');
 music.volume = 0.25
 
-
-var dead = true
-
-var positionY = 0
-var velocityY = 0
-var accelerationY = 0
-
-var gravity = 1
-
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-
-var blocksize = 50
+const one = new Audio('../static/songs/tracen_ondo.mp3')
+const two = new Audio('../static/songs/umapyoi_densetsu.mp3')
+const three = new Audio('../static/songs/next_frontier.mp3')
 
 var floorLocation = canvas.height - blocksize
 
-var grounded = true
-var orbing = false
-var currentOrb = null
-
-var jumping = false
-var hasJumped = false
-
-var gamemode = "Cube"
-
-var scrollSpeed = 8
-var totalDistance = 0
-
-var buttons = []
-
-var progress = 0
-var diffLocation = 0
-var endLocation = 6500
-
-var level = 1
-
-var button = (function () {
-  function button(text, color, x, y, width, height){
-    this.x = x
-    this.y = y
-    this.width = width
-    this.height = height
-    this.color = color
-    this.text = text
-  }
-
-  button.prototype.draw = function(ctx){
-    ctx.fillStyle = this.color
-    ctx.fillRect(this.x, this.y, this.width, this.height)
-    ctx.fillStyle = "black"
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.font = '16px arial';
-    ctx.fillText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.width);
-  }
-
-  button.prototype.mousehover = function(mouseX, mouseY){
-    return !(mouseX < this.x || mouseX > this.x + this.width || mouseY > this.y + this.height || mouseY < this.y)
-  }
-
-  return button
-}())
-
-function start(){
-  music.play()
-  buttons = []
-  dead = false;
-  progress = 0
-  update()
-}
-
-function startScreen(){
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  var level1 = new button("levelOne", "orange", canvas.width/10, canvas.height/10, 80, 45)
-  level1.onClick = function () {return start()}
-  buttons.push(level1)
-  logo.src = "https://media.tenor.com/ifD1GaekwpoAAAAj/uma-musume-agnes-tachyon.gif"
-
-  for (var i = 0; i < buttons.length; i ++) {
-    return buttons[i].draw(ctx)
-  }
-
-}
-
-var level1Objects = [
+const levelonemap = [
   {tag: "spike", x: 600, y: floorLocation + 10, width: 12, height: 30},
   {tag: "spike", x: 650, y: floorLocation + 10, width: 12, height: 30},
   {tag: "orb", x: 675, y: floorLocation - 50, width: 30, height: 30},
@@ -193,7 +119,108 @@ var level1Objects = [
   {tag: "finish", x: 7000, y: floorLocation - 900, width: 50, height: 1000},
 ]
 
-objects = level1Objects
+const leveltwomap = [
+  
+]
+
+const levelthreemap = [
+  
+]
+
+var objects = []
+
+var dead = true
+
+var positionY = 0
+var velocityY = 0
+var accelerationY = 0
+
+var gravity = 1
+
+var grounded = true
+var orbing = false
+var currentOrb = null
+
+var jumping = false
+var hasJumped = false
+
+var gamemode = "Cube"
+
+var scrollSpeed = 8
+var totalDistance = 0
+
+var buttons = []
+
+var progress = 0
+var diffLocation = 0
+var endLocation = 6500
+
+var level = 1
+
+var button = (function () {
+  function button(text, color, x, y, width, height){
+    this.x = x
+    this.y = y
+    this.width = width
+    this.height = height
+    this.color = color
+    this.text = text
+  }
+
+  button.prototype.draw = function(ctx){
+    ctx.fillStyle = this.color
+    ctx.fillRect(this.x, this.y, this.width, this.height)
+    ctx.fillStyle = "black"
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = '16px arial';
+    ctx.fillText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.width);
+  }
+
+  button.prototype.mousehover = function(mouseX, mouseY){
+    return !(mouseX < this.x || mouseX > this.x + this.width || mouseY > this.y + this.height || mouseY < this.y)
+  }
+
+  return button
+}())
+
+function start(level){
+  music = level
+  music.volume = 0.18
+  music.play()
+  buttons = []
+  dead = false;
+  progress = 0
+  if (level == one){
+    objects = levelonemap
+  }
+  else if (level == two){
+    objects = leveltwomap
+  }
+  else{
+    objects = levelthreemap
+  }
+  update()
+}
+
+function startScreen(){
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  var level1 = new button("levelOne", "orange", canvas.width/10, canvas.height/10, 80, 45)
+  level1.onClick = function () {return start(one)}
+  buttons.push(level1)
+  var level2 = new button("levelTwo", "orange", canvas.width/10, canvas.height/10 + 55, 80, 45)
+  level2.onClick = function () {return start(two)}
+  buttons.push(level2)
+  var level3 = new button("levelThree", "orange", canvas.width/10, canvas.height/10 + 110, 80, 45)
+  level3.onClick = function () {return start(three)}
+  buttons.push(level3)
+  logo.src = "https://media.tenor.com/ifD1GaekwpoAAAAj/uma-musume-agnes-tachyon.gif"
+
+  for (var i = 0; i < buttons.length; i ++) {
+    buttons[i].draw(ctx)
+  }
+
+}
 
 function update() {
   if (dead){
@@ -214,7 +241,9 @@ function update() {
   let positionX = canvas.width / 10
   let onBlock = false
 
+  console.log(objects.length)
   for (let i = 0; i < objects.length; i++) {
+    console.log(objects[i])
     let obj = objects[i]
     obj.x -= scrollSpeed
 
